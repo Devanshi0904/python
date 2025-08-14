@@ -14,11 +14,12 @@ print(""" hello
 #SEPRAT
 print("hello","java","hello","python",sep=" | ")
 
-print()
+print("hello",end=" ")
+print("tops")
 
 
-print('hello \\" python')
+print("hello \\\" python")
 
 
 a= input("enter number ")
-print(a)2
+print(a)
