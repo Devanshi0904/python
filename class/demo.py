@@ -12,14 +12,36 @@ print(""" hello
 """)
 
 #SEPRAT
-print("hello","java","hello","python",sep=" | ")
+print("hello","java","hello","python",sep=" | ")   #two word in middel spase
 
-print("hello",end=" ")
+#end
+print("hello",end=" ")   # diffrent line typing but output in one line
 print("tops")
 
 
 print("hello \\\" python")
 
-
-a= input("enter number ")
+#input
+a= input("enter number ")    #user given data
 print(a)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
