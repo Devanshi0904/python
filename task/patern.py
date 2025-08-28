@@ -92,14 +92,21 @@
 
 # print("========= 1,2,3,4,.....left up ========== ")
 # num=1
-# for i in range(1,6):
-#     for j in range(1,i+1 ):
-#         print(num,end="")
+# for i in range(5):
+#     for j in range(i+1):
+#         print(j,end="")
 #         num += 1
 #     print()
 
+#// or
 
-# print("=========== 5,54,543,5432,..... left up")
+# for i in range(1,6):
+#     for j in range(i):
+#         print((i*(i-1))//2 + 1 + j,end="")
+#     print()
+
+
+# print("=========== 5,54,543,5432,....========")
 
 # for i in range (5,0,-1):
 #     for j in range(i,6):
@@ -107,9 +114,69 @@
 #     print()
 
 
-# print("======== 0,10,010,1010,.....left up ===========")
+# print("======== 0,10,010,1010,..... ===========")
 
-for i in range (5):
-    for j in range(i):
-        print(j+i,end=" ")
-    print()
+# for i in range (1,6):
+#     for j in range(1,i+1):
+#         print((j+i)%2,end=" ")
+#     print()
+
+
+# print("========= 1,01,101,0101,..... ========")
+# for i in range (1,6):
+#     for j in range(0,i):
+#         print((j-i)%2,end=" ")
+#     print()
+
+
+# print("========== t * pattern ===========")
+
+# print("*"*5)
+# for i in range (1,4):
+#     print(" ","*")
+
+
+# print("========= H * pattern ==========")
+
+# for i in range(5):
+#     for j in range(5):
+#             if j==0 or j==4 or i==5//2:
+#                 print("* ",end="")
+#             else:
+#                 print("  ",end="")
+#     print()
+
+
+
+# print("=========== abcd.... left up =========")
+
+
+
+
+ 
+# print("========= damru ==========")
+
+
+
+
+
+
+# print("=========== tir ===========")
+
+
+
+
+
+
+# print("========== * temple =========")
+# for i in range(4):     
+#     for j in range( 4 - i ):    
+#         print(" ", end="")
+#     for k in range(i+1):     
+#         if k == 0 or k == (i):
+#             print("* ",end="")
+#         else:
+#             print("  ", end="") 
+#     print()
+# for i in range(3):
+#     print(" *"*4)
