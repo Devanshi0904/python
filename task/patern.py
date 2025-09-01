@@ -148,22 +148,40 @@
 
 
 
+
 # print("=========== abcd.... left up =========")
 
+# char='A'
+# for i in range(1,6):
+#     for j in range(i):
+#         print(char,end="")
+#         char =  chr(ord(char)+1)
+#     print()
 
 
 
  
-# print("========= damru ==========")
+print("========= damru ==========")
 
-
+lines = 10
+for i in range(1,lines+1):
+    for j in range(1,lines+1):
+        if j==1 or j==lines or j==i or j==lines+1-i:
+            print("*",end="")
+        else :
+            print(" ",end="")
+    print()
 
 
 
 
 # print("=========== tir ===========")
-
-
+# for i in range (5):
+#     print("*",end="")
+#     print(" ",end="")
+# for i in range (5):
+#     print("*",end="")
+    
 
 
 

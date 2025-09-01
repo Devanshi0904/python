@@ -1,0 +1,23 @@
+{
+	"folders": [
+		{
+			"path": "../class"
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "../assignment"
+		},
+		{
+			"path": "../project"
+		},
+		{
+			"path": "../asseesment"
+		},
+		{
+			"path": "../practice"
+		}
+	],
+	"settings": {}
+}
