@@ -198,12 +198,12 @@
 lines = 5
 for i in range(1, lines + 1):
     if i == 1:   
-        print(" " * 7 + "*")
+        print(" " * 9 + "*")
     elif i == 2: 
-        print(" ".join("*" for _ in range(5)))
+        print(" "," *"*5)
     elif i == 3: 
-        print(" " * 11 + "*")
+        print(" " * 13 + "*")
     elif i == 4: 
-        print(" ".join("*" for _ in range(5)))
+        print(" "," *"*5)
     elif i == 5: 
-        print(" " * 7 + "*")
+        print(" " * 9 + "*")
