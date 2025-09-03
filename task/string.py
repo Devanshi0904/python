@@ -1,4 +1,4 @@
-st = "my name is devanshi"
+# st = "my name is devanshi"
 # print(len(st))
 # print(str.lower(st))
 # print(str.upper(st))
@@ -19,10 +19,10 @@ st = "my name is devanshi"
 
 
 
-k = "hello python heloo 4545 dds 545454"
+# k = "hello python heloo 4545 dds 545454"
 
-a=0
-b=0
+# a=0
+# b=0
 # for i in k:
 #     if str(i).isalpha():
 #         a+=1
@@ -31,7 +31,8 @@ b=0
 # print("alpha : ",a)
 # print("numbers : ",b)
 
-s=" "
-for i in range(len(k)-1,-1,-1):
-    s+=k[i]
-print(s)
+# s=" "
+# for i in range(len(k)-1,-1,-1):
+#     s+=k[i]
+# print(s)
+
