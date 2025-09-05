@@ -1,8 +1,8 @@
 # ===== lab - 1 ======
 # print('"hello , world !"')
 
-# name = 'Devanshi Lad'
-# print(f"my name is {name}")
+
+print("my name is Devanshi ")
 
 
 # ======= lab - 2 =======

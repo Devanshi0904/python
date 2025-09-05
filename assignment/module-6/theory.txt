@@ -121,4 +121,27 @@ o	Dynamic Typing
 
 5.	Writing and executing your first Python program.
 
--	
+-  	Install Python:
+
+Ensure Python is installed on your system. You can download the latest version from the official Python website. During installation, it is recommended to select the option "Add Python to PATH" for easier execution from the command line.
+
+-   Choose a Text Editor or IDE:
+Use a plain text editor like Notepad (Windows), TextEdit (macOS), or a more advanced Integrated Development Environment (IDE) like VS Code or PyCharm.
+
+-   Create a Python File:
+Open your chosen text editor or IDE.
+Type the following simple Python code:
+ -  example :
+
+        print("Hello, Python!")
+
+Save the file with a .py extension (e.g., hello.py). Choose a location on your computer where you can easily find it.
+
+-   Execute the Program:
+Using the Command Line/Terminal:
+Open your system's command prompt (Windows) or terminal (macOS/Linux).
+Navigate to the directory where you saved your hello.py file using the cd command (e.g., cd C:\Users\YourUser\PythonPrograms).
+Execute the script by typing python hello.py and pressing Enter.
+Using an IDE: If you are using an IDE like VS Code or PyCharm, there will typically be a "Run" button or a keyboard shortcut to execute the current Python file directly within the IDE's environment.
+Observe the Output:
+Upon successful execution, the text "Hello, Python!" will be displayed in your terminal or IDE's output window. This confirms your first Python program has run successfully.
