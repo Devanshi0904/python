@@ -5,14 +5,14 @@ a = 10
 b = 20
 c = "100"
 
-print(a+b)
+# print(a+b)
 print("a"+"b")
 print(str(a)+c)
 print(a+int(c))
-print(10/3)
-print(10%3)
-print(5**8)
-print(10//8)
+# print(10/3)
+# print(10%3)
+# print(5**8)
+# print(10//8)
 
 
 #assignment 
@@ -43,9 +43,9 @@ print(10//8)
 
 # identity
 
-a = [10,20,30]
-b = [10,20,30]
-c = a
+# a = [10,20,30]
+# b = [10,20,30]
+# c = a
 
 # a = "test"
 # b = "test"
@@ -61,5 +61,5 @@ c = a
 # print(10 in a)
 # print(100 not in a)
 
-a  ="Hello"
-print('h' in a)
+# a  ="Hello"
+# print('h' in a)

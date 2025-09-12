@@ -9,12 +9,12 @@
 #     print("not elegeble...")
 
 
-a  =1000000
-b = 20000
-c = 520
+# a  =1000000
+# b = 20000
+# c = 520
 
 # if a>b:
-#     print("A is greater")
+#     print("A is greater") 
 # else : 
 #     print("B is greater")
 
@@ -30,14 +30,14 @@ c = 520
 #         print("C is greater")
 
 
-#===========else if==============
+# ===========else if==============
 
-if a>b and a>c:
-    print("A is greater")
-elif b>a and b>c:
-    print("B is greater")
-elif c>a and c>b:
-    print("c is greater")
+# if a>b and a>c:
+#     print("A is greater")
+# elif b>a and b>c:
+#     print("B is greater")
+# elif c>a and c>b:
+#     print("c is greater")
 
 
 #============= for loop ===============

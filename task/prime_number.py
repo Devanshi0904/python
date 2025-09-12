@@ -13,3 +13,12 @@ for j in range(3,100):
     else:
         pass
        
+
+
+
+#even or odd
+# if num%2==0
+
+# leap year
+# if year%4==0
+

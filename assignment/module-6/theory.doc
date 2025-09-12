@@ -1,0 +1,169 @@
+MODULE – 6 :  
+ 
+
+Que - 1. Introduction to Python and Its Features 
+
+
+1. History and Evolution of Python 
+
+-  Python is a high-level, interpreted, and general-purpose programming language. It is a simple and easy to understand language which feels like reading simple English
+
+➢ Features: 
+• Easy to understand = Less development time  
+• Free and open source 
+• High level language 
+• Portable: Works on Linux / Windows / Mac. 
+• Fun to work with!
+ 
+➢ History and evolution:- 
+•	1989 – Created by Guido van Rossum. 
+•	1991 – First version (Python 0.9.0) released. 
+•	2000 – Python 2.0 introduced list comprehensions, garbage collection. 
+•	2008 – Python 3.0 launched with better design (not backward-compatible). 
+•	2025 – Python 3.x is used in AI, ML, web development, automation, and many more areas. 
+ 
+
+2. Advantages of Python Over Other Languages 
+
+•	Easy syntax and fast to develop. 
+•	Strong community and huge library support. 
+•	Used in various domains (web, AI, data science). 
+•	Platform independent. 
+•	Integration support with C/C++/Java. 
+ 
+
+3. Installing Python & Setting Up Environment 
+
+-	Anaconda – Best for data science; includes Python, Jupyter, etc. 
+-	PyCharm – Full IDE for Python. 
+-	VS Code – Lightweight editor; install Python extension. 
+ 
+
+4. First Python Program
+
+Code: 
+print("Hello, world!") 
+ 
+
+
+Que - 2. Programming Style 
+
+1. PEP 8 Guidelines 
+
+- PEP 8 is Python’s official style guide.As per PEP 8 the following are the guideline which must be followed while writing python code. 
+•	Use 4 spaces per indent. 
+•	Limit lines to 79 characters. 
+•	Function/variable names must be snake_case instead of  ‘a’  or ‘user’. 
+•	Class names must be ‘CamelCase’ instead of ‘camel’  
+•	Add whitespace around operators. 
+
+
+2. Indentation, Comments, Naming 
+
+•	Indentation: Mandatory (4 spaces). 
+•	Comments: Use # for single-line and """ for docstrings or multiple line comments. 
+•	Naming: Use meaningful names, follow snake_case. 
+ 
+
+3. Writing Readable & Maintainable Code 
+
+•	Follow PEP 8. 
+•	Write small, modular functions. 
+•	Use docstrings and comments. 
+•	Avoid deep nesting. 
+•	Choose descriptive variable names. 
+ 
+
+Que - 3. Core Python Concepts
+
+1. Data Types 
+- datatype specifies what type of data a variable can store such as intger , floating , character etc...
+
+•   int: 5 
+•	float: 3.14 
+•	str: "Hello" 
+•	list: [1, 2, 3] 
+•	tuple: (1, 2) 
+•	dict: {'a': 1} 
+•	set: {1, 2, 3} 
+ 
+2. Variables & Memory Allocation 
+
+•	Python variables are references to objects. 
+•	Memory is managed automatically using reference counting and garbage collection. 
+ 
+3. Operators 
+
+•	Arithmetic: +, -, *, /, %, // 
+•	Comparison: ==, !=, >, <, >=, <= 
+•	Logical: and, or, not 
+•	Bitwise: &, |, ^, ~, <<, >> 
+
+
+Que - 4. Conditional Statements 
+
+1. if, else, elif 
+
+•	if: Checks a condition. If it's True, executes a block of code. 
+•	elif (else-if): Checks another condition if the first if was False. 
+•	else: Runs if none of the above conditions are True. 
+
+- CODE: 
+if x > 0: 
+    print("Positive number") elif x == 0: 
+    print("Zero") else: 
+    print("Negative number") 
+ 
+
+2. Nested if-else 
+
+if x > 0:     if x < 10: 
+        print("Small positive number") 
+    else: 
+        print("Large number") 
+
+
+Que - 5. Looping 
+
+1. for & while Loops 
+
+for i in range(5):    
+print(i) while x < 5:   
+print(x) 
+    x += 1 
+ 
+2. How Loops Work
+
+•	for: Iterates over a sequence. 
+•	while: Runs while a condition is True. 
+ 
+3. Loops with Collections
+
+for item in [1, 2, 3]:     
+print(item) for key in my_dict: 
+    print(key, my_dict[key]) 
+ 
+
+Que - 8. Control Statements 
+
+1. break, continue, pass 
+ 
+-   break: Exits loop 
+-	continue: Skips current iteration 
+-	pass: Does nothing (placeholder) 
+
+
+Que - 9. String Manipulation 
+
+1. Accessing and Manipulating Strings s = "Python" print(s[0])  # P print(s[-1])  # n 
+
+
+2. Basic Operations 
+
+"Hello" + "World"   # Concatenation 
+"Hi" * 3            # Repetition 
+s.upper(), s.lower() 
+
+
+3. String Slicing Example s = "Python" print(s[0:2])  # Py print(s[::2])  # Pto 
+ 
