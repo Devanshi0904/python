@@ -9,7 +9,7 @@ for i in range(100,1000):
         sum +=rem**3
         num = num//10
 
-    if (sum==temp):
-        print(f"{temp} armstrong ")
+    if (sum==temp):print(f"{temp} armstrong ")
+        
     else:
         pass

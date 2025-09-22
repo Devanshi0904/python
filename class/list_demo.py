@@ -27,14 +27,50 @@ a=["Devanshi","Zinal","Hetal","Sneha"]
 # print(a)
 
 
+# for i in a:
+#     print(i)
 
+# for i in range(len(a)):
+#     print(a[i])
 
-# a = [i for i in a if "e" in i]
+# i = 0
+# while i<len(a):
+#     print(a[i])
+#     i+=1
+
+# k = []
+
+# for i in a:
+#     if 'e' in i:
+#         k.append(i)
+# print(k)
+
+# k = [i for i in l if "e" in i]
+# k = [i for i in l if i.startswith('T')]
+# k = ["A" for i in l]
+
+# a.sort()
+# print(a)
+# l.sort(reverse=True)
+# l.reverse()
+
+# k = sorted(a)
+# print(k)
+
+# k = l.copy()
+# k = list(l)
+# k = l[:]
+# k = l
+
+# a = [10,20,30,10]
+# b = [100,200,300]
+
+# c = a+b
+# print(c)
+
+# a.extend(b)
 # print(a)
 
+# print(a.count(10))
 
-# a=[10,20,30]
-# b=[100,200,300]
-
-# c=a+b
-# print(c)
+# print(a.index(10))

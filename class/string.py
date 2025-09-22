@@ -31,6 +31,14 @@
 # print("alpha : ",a)
 # print("numbers : ",b)
 
+
+# print(k[5:])
+# print(k[:5])
+# print(k[5:9])
+# print(k[-8:-1])
+# print(k[::-1])
+
+
 # s=" "
 # for i in range(len(k)-1,-1,-1):
 #     s+=k[i]
