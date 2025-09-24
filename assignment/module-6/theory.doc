@@ -1,4 +1,4 @@
-MODULE – 6 :  
+﻿MODULE – 6 :  
  
 
 Que - 1. Introduction to Python and Its Features 
@@ -142,8 +142,60 @@ print(x)
 for item in [1, 2, 3]:     
 print(item) for key in my_dict: 
     print(key, my_dict[key]) 
+
+
+
+Que – 6  Generators and Iterators 
+
+1. Understanding how generators work in Python.
+
+• Functions that yield values one at a time. 
+def gen(): 
+yield 1 
+yield 2
+
+2. Difference between yield and return. 
+
+• return: Ends function and returns value
+• yield: Pauses function, retains state for next call. 
+
+
+3. Understanding iterators and creating custom iterators. 
+
+• Objects with __iter__() and __next__() methods.
+-  it = iter([1, 2, 3]) 
+- print(next(it))          # 1 
+
+
+
+Que – 7 . Functions and Methods
+
+1. Defining and calling functions in Python. 
+
+def greet(name): 
+     print("Hello", name) 
+greet("devanshi") 
+
+2. Function arguments (positional, keyword, default). 
+
+• Positional: def add(a, b)
+• Keyword: add(a=1, b=2) 
+• Default: def add(a, b=5)
+
+3. Scope of variables in Python. 
+
+• Local: Inside functions. 
+• Global: Outside functions. 
+• Use global keyword to modify global variables. 
+
+4. Built-in methods for strings, lists, etc. 
+
+• String: upper(), lower(), split() 
+• List: append(), pop(), sort() 
+• Dict: keys(), values(), get() 
  
 
+ 
 Que - 8. Control Statements 
 
 1. break, continue, pass 
@@ -164,6 +216,47 @@ Que - 9. String Manipulation
 "Hi" * 3            # Repetition 
 s.upper(), s.lower() 
 
-
-3. String Slicing Example s = "Python" print(s[0:2])  # Py print(s[::2])  # Pto 
+3.String Slicing Example 
+s = "Python" 
+print(s[0:2])  # Py 
+print(s[::2])  # Pto 
  
+
+Que – 10  Advanced Python (map(), reduce(), filter(), Closures and Decorators)
+
+1. How functional programming works in Python.
+
+• Functions are first-class citizens. 
+• Use pure functions, avoid side effects.
+
+2. Using map(), reduce(), and filter() functions for processing data.
+
+1. map():
+-  Syntax: map(func, iterable[, ...])
+• Applies a function to each element of iterable(s), returning an iterator of transformed values. • In Python 3, map() returns an iterator, not a list—so wrap with list() to inspect it
+• Can accept multiple iterables, applying the function element-wise until the shortest iterable is exhausted.
+ 
+• Example: 
+numbers = [1, 2, 3, 4, 5] 
+squared = list(map(lambda x: x**2, numbers)) 
+print(squared)      # [1, 4, 9, 16, 25] 
+
+2.  filter():
+-  Syntax: filter(func, iterable) 
+• Keeps only those elements in the iterable for which func(element) returns True. 
+• Also returns an iterator, so use list() to materialize results. 
+
+• Example: 
+numbers = [1, 2, 3, 4, 5, 6] 
+evens = list(filter(lambda x: x % 2 == 0, numbers)) 
+print(evens)       # [2, 4, 6] 
+
+3.  reduce(): 
+- Syntax: reduce(func, iterable[, initializer]) 
+• Applies a binary function cumulatively to elements of the iterable to produce a single value. 
+• Not a built-in in Python 3 anymore—you must import it from functools. 
+
+•  Example: 
+from functools import reduce 
+result = reduce(lambda x, y: x + y, [1, 2, 3, 4, 5]) 
+print(result)            # 15

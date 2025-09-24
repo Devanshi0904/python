@@ -143,6 +143,7 @@
 # else:
 #     print("You are not eligible to donate blood")
  
+
 # ================== lab - 5 =======================
 # ====== Que - 1 ======
 # List1 = ['apple', 'banana', 'mango']
@@ -171,6 +172,59 @@
 # ===== Que - 4 =====
 # for i in range(5):
 #     print("* "*(i+1))
+
+
+# ====================== lab - 6 ==============================
+# ====== Que - 1 =======
+# def generate_even_numbers():
+#     num = 0
+#     count = 1
+#     while count < 10:
+#         yield num
+#         num += 2
+#         count += 1
+
+# for even in generate_even_numbers():
+#     print(even)
+
+# ====== Que - 2 =======
+# l = [10,20,30,40,50,60,70]
+# k = iter(l)
+# print(next(k))
+# print(next(k))
+
+
+
+# ====================== lab - 6 ==============================
+# ====== Que - 1 =======
+# print("hello")
+
+# ====== Que - 2 =======
+# b = "Hello, Python!"
+# print(b)
+
+# ====== Que - 3 =======
+# print("""my name is devanshi..""")
+
+# ====== Que - 4 =======
+# x = "Python"
+# print("First character:", x[0])
+
+# ====== Que - 5 =======
+# print("From second position onwards:", x[1:])
+
+# ====== Que - 6 =======
+# print("Up to fifth character:", x[:5])
+
+# ====== Que - 7 =======
+# print("Substring between index 1 and 4:", x[1:4])
+
+# ====== Que - 8 =======
+# print("Last character:", x[-1])
+
+# ====== Que - 9 =======
+# print("Alternate characters from index 1:", x[1::2])
+
 
 #  ============================ lab - 8 ==============================
 # ====== Que - 1 =======
@@ -242,3 +296,119 @@
 # print("zinal".zfill(50))
 
 # print("zinal".center(50,"*"))
+
+
+
+# ======================= lab - 10 ============================
+# ====== Que - 1 =======
+# def square (a):
+#     return a*a
+# x = [5,10,15,20,25,30]
+# b = map(square,x)
+# print(list(b))
+
+# ====== Que - 2 =======
+# x = [1,3,5,7,9,11]
+# from functools import reduce
+# k = reduce(lambda a,b:a*b,x)
+# print(k)
+
+# ====== Que - 3 =======
+# l = [1,2,3,4,5,6,7,8,9,10]
+# s = filter(lambda a : a%2==0,l)
+# print(list(s))
+
+
+
+
+
+#=========================================================== ASSESSMENT =============================================================================
+#====================== simple calculator ============================
+# def add(a, b):
+#     return a + b
+
+# def subtract(a, b):
+#     return a - b
+
+# def multiply(a, b):
+#     return a * b
+
+# def divide(a, b):
+#     if b == 0:
+#         return "Error!"
+#     return a / b
+
+# def modulo(a, b):
+#     return a % b
+
+# def Exponentiation(a, b):
+#     return a ** b
+
+# def Floor_division(a, b):
+#     return a // b
+
+
+
+# while True:
+#     print("\n--- Calculator Menu ---")
+#     print("1. Add")
+#     print("2. Subtract")
+#     print("3. Multiply")
+#     print("4. Divide")
+#     print("5. modulo")
+#     print("6. Exponentiation")
+#     print("7. Floor_division")
+
+#     choice = input("Enter your choice (1-5): ")
+
+#     if choice == "5":
+#         print("Goodbye!")
+#         break   
+
+#     if choice in ["1", "2", "3", "4"]:
+#         num1 = float(input("Enter first number: "))
+#         num2 = float(input("Enter second number: "))
+
+#         if choice == "1":
+#             print("Result:", add(num1, num2))
+#         elif choice == "2":
+#             print("Result:", subtract(num1, num2))
+#         elif choice == "3":
+#             print("Result:", multiply(num1, num2))
+#         elif choice == "4":
+#             print("Result:", divide(num1, num2))
+#         elif choice == "5":
+#             print("Result:", modulo(num1, num2))
+#         elif choice == "6":
+#             print("Result:", Exponentiation(num1, num2))
+#         elif choice == "7":
+#             print("Result:", Floor_division(num1, num2))
+#     else:
+#         print("Invalid choice, try again.")
+
+
+
+
+
+
+#====================== grade management system ============================
+# choice="y"
+# while choice != "n" :
+#     marks=int(input("Enter the Marks:"))
+
+#     if marks>=91 and marks<=100:
+#         print("your grade is A")
+#     elif marks>=71 and marks<=90:
+#         print("your grade is B")
+#     elif marks>=51 and marks<=70:
+#         print("your grade is C")
+#     elif marks>=35 and marks<=50:
+#         print("your grade is D")
+#     else:
+#         print("fail ")
+
+#     choice=input("do you want to continue?yes or no : ")
+
+
+
+
