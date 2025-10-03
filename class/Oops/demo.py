@@ -1,0 +1,95 @@
+# =========================================== class & object ==========================================
+# class pen:
+#     price = 10
+#     company = 'cello'
+#     color = 'blue'
+
+#     def to_write(self):
+#         print("erite method calling ...")
+#         print(self.price,self.company,self.color)
+# p = pen()
+# p.to_write()
+
+# class student:
+#     name = 'devanshi'
+#     age = 20
+#     email = 'devanshi@gamil.com'
+
+#     def person(display):
+#         print("student information ")
+#         print(display.name,display.age,display.email)
+# s = student()
+# s.person()
+
+
+
+#==================================== constractor ======================================
+# class student:
+#     def __init__(self,id,name,email):
+#         self.name = name
+#         self.email = email
+#         self.id = id
+
+#     def display(self):
+#         print("running dispal...")
+#         print(self.name,self.email,self.id)
+
+# s = student(10,'devanshi','devu@gmail.com')
+# s.display()
+
+# s1 = student(11,'tisha','tisha@gmail.com')
+# s1.display()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Student:
+
+    clg = 'DRSTC'
+    def __init__(self,id,name,email):
+        self.name  = name
+        self.email = email
+        self.id = id
+
+    def display(self):
+        print("Runing display...")
+        print(self.id,self.name,self.email,self.clg)
+
+    @classmethod
+    def sample(self):
+        print(self.clg)
+        print("Sample calling")
+
+    @staticmethod
+    def run():
+        print("Run calling")
+
+Student.clg='ABC'
+Student.sample()
+
+Student.run("abc")
+
+# s  = Student(10,"sunil",'sunil@gmail.com')
+# s.display()
+
+# s1 = Student(11,"Jenil","jenil@gmail.com")
+# s1.display()
+
+
+
+
+
+
