@@ -17,19 +17,56 @@
 
 
 
-def add(calc):
+# def add(calc):
+#     def wrapper(*a):
+#         print(a[0]+a[1])
+#         calc(*a)
+#     return wrapper
+
+# def mul(calc):
+#     def wrapper(*a):
+#         print(a[0]*a[1])
+#         calc(*a)
+#     return wrapper
+# @mul
+# @add
+# def calc(a,b):
+#     print("calc operation ")
+# calc(10,20)
+
+
+
+
+def onlyNumber(func):
     def wrapper(*a):
-        print(a[0]+a[1])
-        calc(*a)
+        if not str(a[0]).isdigit():
+            print("only number allowed")
+        else:
+            func(*a)
     return wrapper
 
-def mul(calc):
+
+def onlycharcter(func):
     def wrapper(*a):
-        print(a[0]*a[1])
-        calc(*a)
+        if not str(a[0]).isalpha():
+            print("only charter allowed")
+        else:
+            func(*a)
     return wrapper
-@mul
-@add
-def calc(a,b):
-    print("calc operation ")
-calc(10,20)
+
+
+def onlyNumAlpha(func):
+    def wrapper(*a):
+        if not str(a[0]).isalnum():
+            print("only number and chater allowed")
+        else:
+            func(*a)
+    return wrapper
+    
+
+
+@onlyNumAlpha
+def myfunc(a):
+    print(a)
+
+myfunc("@")
