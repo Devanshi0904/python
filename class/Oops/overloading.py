@@ -1,13 +1,13 @@
 # from multipledispatch import dispatch
-class Calc:
+# class Calc:
 
     # @dispatch(int, int)
-    def add(self,a,b):
-        print(a+b)
+    # def add(self,a,b):
+    #     print(a+b)
 
     # @dispatch(int,int,int)
-    def add(self,a,b,c):
-        print(a+b+c)
+    # def add(self,a,b,c):
+    #     print(a+b+c)
 
     # def add(self,*a):
     #     sum=0
@@ -15,11 +15,11 @@ class Calc:
     #       sum+=i
     #     print(sum)
 
-c = Calc()
+# c = Calc()
 # c.add(10,20)
-c.add(10,20,30)
+# c.add(10,20,30)
 
-
+#======= OVERRIDING ==============
 class A:
     def disp(self):
         print("A disp calling")

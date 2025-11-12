@@ -33,19 +33,19 @@
 
 
 #=========================================================== EXCEPTION =====================================================
-print("program start")
-try:  
-    a = 10
-    b = a/2
-    print(b)
-except Exception as e:
-    print(e)
-else:                                     #sachu hoy to hoy to print nma thay
-    print("every thing is okay")
+# print("program start")
+# try:  
+#     a = 10
+#     b = a/2
+#     print(b)
+# except Exception as e:
+#     print(e)
+# else:                                     #sachu hoy to hoy to print nma thay
+#     print("every thing is okay")
 # finally:                                  #erroe hoy ke na hoy to pan excecute the inally
 #     print("always executable")
 
-print("program ended")
+# print("program ended")
 
 
 # f =""
@@ -69,4 +69,4 @@ print("program ended")
 #     finally:
 #         print("program executed....")
 # a = test()
-# print(a)
+# print(a)  

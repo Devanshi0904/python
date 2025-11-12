@@ -1,0 +1,455 @@
+﻿MODULE - 7 :  
+ 
+
+Que - 1  Printing on Screen
+
+1. Introduction to the print() function in Python.
+- The print() function in Python is used to display output on the screen. It prints the specified message, variable, or value to the console.
+
+o Example:
+	 
+	print("Hello, World!")
+
+
+2.   Formatting outputs using f-strings and format().
+* F-Strings :
+
+	f"Hello, {name}!"	
+
+- Fast, readable, supports expressions & format specs.
+
+o Example:
+	print(f"Pi: {3.14159:.2f}")
+
+* format() Method:
+
+"Hello, {}".format(name)
+
+- Uses {} placeholders (positional/named).
+
+o Example:
+	print("Balance: ${:,.2f}".format(12345.67))
+
+
+
+Que - 2  Reading Data from Keyboard
+
+1. Using the input() function to read user input from the keyboard. 
+- The input() function is used in Python to get input from the user via the keyboard. It always returns the input as a string (text), even if the user types a number.
+ 
+* Syntax: 
+variable = input("Prompt message") 
+
+o Example:
+name = input("Enter your name: ") 
+print("Hello,", name) 
+
+2. Converting user input into different data types (e.g., int, float, etc.).
+- Converting user input into different data types means changing the input (which is always a string) into another type like int, float, etc
+
+o Example:
+
+# integer input
+Age = int(input(�enter your age�))
+print("Next year, you will be", age + 1)
+ 
+# float input
+price = float(input("Enter the price: ")) 
+print("Price with tax:", price * 1.1)
+
+# Boolean input
+	x = input("Enter something: ")   
+       b = bool(x)                      
+       print(b)
+       
+       
+Que - 3   Opening and Closing Files
+1. Opening files in different modes ('r', 'w', 'a', 'r+', 'w+').
+- When working with files in Python, the open() function is used along with a mode that tells Python what you want to do with the file. 
+
+* Mode Description
+'r'  :  Read mode (default).
+'w' :  ' Write mode.
+'a'  :  Append mode.
+'r+ :  Read and write. 
+'w+' Write and read. 
+
+* Examples: 
+# 'r' - read only 
+f = open('file.txt', 'r') 
+
+# 'w' - write only, creates or overwrites 
+f = open('file.txt', 'w') 
+
+# 'a' - append only 
+f = open('file.txt', 'a') 
+
+# 'r+' - read and write (no overwrite) 
+f = open('file.txt', 'r+') 
+
+# 'w+' - write and read (with overwrite) 
+f = open('file.txt', 'w+')   
+ 
+ 
+2. Using the open() function to create and access files.
+- The open() function in Python is used to create, read, write, or append to a file. Its basic syntax is:
+- file = open('filename', 'mode') 
+- After opening a file, you can use: 
+* read() : to read content, 
+* write() : to write to the file, 
+* close() : to close the file. 
+
+o Example: 
+# Create and write to a file 
+file = open('example.txt', 'w') 
+file.write("Hello, this is a test file.") 
+file.close() 
+
+o Example: 
+file = open('example.txt', 'r') 
+content = file.read() 
+print(content) 
+file.close()
+
+o Example: 
+with open('example.txt', 'r') as file: 
+    print(file.read()) 
+# Automatically closes the file
+
+
+3. Closing files using close().
+- The close() method is used to close a file in Python after you are done working with it. This frees up system resources and ensures that any changes are saved.
+
+o Example:
+file = open("example.txt", "r")
+content = file.read()
+file.close()  # closes the file
+
+
+
+Que -  4   Reading and Writing Files
+1. Reading from a file using read(), readline(), readlines().
+o read() : Reads the entire file as a single string.
+	content = f.read()
+- Use when you need the whole file at once.
+
+o readline() : Reads one line at a time (including \n).
+	line = f.readline()
+- Use for sequential line-by-line reading.
+
+o readlines() :Reads all lines into a list.
+	lines = f.readlines()
+-  Use when you need to loop through lines easily.
+
+2. Writing to a file using write() and writelines().
+o write() : writes a single string to a file.
+	with open("file.txt", "w") as f:
+	f.write("Hello\nWorld")
+-  Writes exactly what�s in the string.
+
+o writelines() : writes a list (or iterable) of strings to a file.
+	with open("file.txt", "w") as f:
+    f.writelines(["Hello\n", "World\n"])
+                -  It does not add newline characters automatically � you must include \n if needed.
+
+
+
+
+Que - 5  Exception Handling
+1. Introduction to exceptions and how to handle them using try, except, and finally.
+• Syntax: 
+try: 
+# risky code 
+       except ErrorType: 
+       # handle error 
+finally: 
+       # always runs 
+
+• Example: 
+try: 
+         x = 5 / 0 
+except ZeroDivisionError: 
+        print("Can't divide by zero!") 
+finally: 
+        print("Done!")
+
+
+2. Understanding multiple exceptions and custom exceptions.
+• Handling Multiple Exceptions: 
+   try: 
+       value = int("abc") 
+           except ValueError: 
+       print("Value error!") 
+           except TypeError: 
+       print("Type error!") 
+
+• Catching Multiple Errors Together: 
+except (ValueError, TypeError): 
+    print("Either a ValueError or TypeError occurred.") 
+
+• Custom Exception: 
+class TooSmallError(Exception): 
+        pass 
+def check(n): 
+     if n < 10: 
+       raise TooSmallError("Number too small") 
+       try: 
+              check(5) 
+       except TooSmallError as e: 
+              print("Error:", e)
+
+
+
+Que – 6   Class and Object (OOP Concepts)
+1. Understanding the concepts of classes, objects, attributes, and methods in Python.
+• Class  :  A blueprint or template for creating objects. It defines the structure and behavior.
+class Car:
+pass
+
+• Object  :  An instance of a class (a specific example created from the blueprint).
+my_car = Car()
+
+• Attributes → Variables inside a class that store data or properties of an object.
+class Car 
+         def __init__(self, brand, color):
+        self.brand = brand
+        self.color = color
+
+• Methods → Functions defined inside a class that describe the behavior of an object.
+class Car:
+    def start(self):
+        print("Car is starting...")
+
+
+
+2. Difference between local and global variables.
+i. Local Variable 
+• Defined inside a function 
+• Accessible only within that function 
+• Example: 
+def greet(): 
+name = "Alice" # local variable 
+print(name) 
+
+ii. Global Variable 
+• Defined outside any function 
+• Can be accessed anywhere in the program 
+• Example: 
+name = "Bob"        # global variable
+def greet(): 
+   print(name) 
+    greet()         # can access global variable
+
+
+Que – 7   Inheritance
+1. Single, Multilevel, Multiple, Hierarchical, and Hybrid inheritance in Python.
+• Single Inheritance
+- A child class inherits from one parent class.
+• Example :
+class A:
+   def show(self):
+     print("A")
+
+class B(A):
+	   pass
+
+b = B()
+b.show()  # Output: A
+
+• Multilevel Inheritance
+- Inheritance occurs across multiple levels.
+• Example :
+class A:
+    pass
+class B(A):
+    pass
+class C(B):
+    pass
+Here, C inherits from B, and B inherits from A.
+
+• Multiple Inheritance
+- A class inherits from more than one parent class.
+• Example :
+class A:
+    pass
+class B:
+   pass
+class C(A, B):
+   pass
+- C gets features from both A and B.
+
+• Hierarchical Inheritance
+- Multiple child classes inherit from the same parent class.
+class A:
+    pass
+class B(A):
+   pass
+class C(A):
+    pass
+
+• Hybrid Inheritance
+- Combination of two or more types of inheritance.
+class A: pass
+class B(A): pass
+class C(A): pass
+class D(B, C): pass          # Hybrid (multiple + hierarchical)
+
+
+
+2. Using the super() function to access properties of the parent class.
+- The super() function in Python is used to access methods and properties from a parent (super) class inside a child class. It helps avoid directly naming the parent class and supports multiple inheritance.
+• Example:
+class Parent:
+   def greet(self):
+        print("Hello from Parent")
+
+class Child(Parent):
+    def greet(self):
+        super().greet()   # calls Parent's greet()
+        print("Hello from Child")
+
+c = Child()
+c.greet()
+
+
+Que – 8   Method Overloading and Overriding
+1. Method overloading: defining multiple methods with the same name but different parameters.]
+• Method Overloading: 
+- Method Overloading means defining multiple methods with the same name but different parameters. 
+o In some languages like Java, this is done by changing the number/type of arguments. 
+o But in Python, true method overloading is not directly supported because Python methods can accept any number of arguments using *args and **kwargs. 
+- This works because Python uses default arguments or *args to mimic overloading. 
+
+• Simulating Method Overloading in Python 
+class Greet: 
+   def hello(self, name=None): 
+   if name: 
+   print(f"Hello, {name}!") 
+else: 
+       print("Hello!") 
+      		g = Greet() 
+       g.hello()                      # Output: Hello!
+       g.hello("devanshi")          # Output: Hello, devanshi!
+
+2. Method overriding: redefining a parent class method in the child class.
+• Method Overridding:
+- Method Overriding means redefining a method from the parent class in the child class to provide a different implementation. 
+
+• Example: 
+     	class Animal: 
+   def speak(self): 
+       print("Animal makes a sound") 
+class Dog(Animal): 
+         def speak(self):      # overriding the method 
+       print("Dog barks") 
+d = Dog() 
+d.speak()           # Output: Dog barks 
+• Using super() with Overriding 
+- You can still call the parent version of the overridden method using super(): 
+
+• Example: 
+class Dog(Animal): 	
+         def speak(self): 
+       super().speak() 
+       print("Dog barks") 
+       d = Dog() 
+       d.speak()
+
+
+Que – 9   SQLite3 and PyMySQL (Database Connectors)
+1. Introduction to SQLite3 and PyMySQL for database connectivity.
+• SQLite3 :
+- SQLite is a lightweight, serverless, self-contained SQL database engine. 
+- It stores the entire database in a single file on the disk. 
+- Ideal for small to medium applications, prototyping, or embedded systems. 
+- Python has a built-in module sqlite3 for connecting and interacting with SQLite databases. 
+• Example: 
+- import sqlite3 
+# Connect to a database (or create one if it doesn't exist) 
+conn = sqlite3.connect('example.db') 
+cursor = conn.cursor() 
+# Create a table 
+cursor.execute('CREATE TABLE IF NOT EXISTS users (id INTEGER, name TEXT)') 
+# Commit and close 
+conn.commit() 
+conn.close() 
+
+• PyMySQL :
+- PyMySQL is a third-party library used to connect Python with MySQL databases. 
+- Suitable for web applications, large datasets, and multi-user environments. 
+- Requires the MySQL server to be installed and running. 
+
+• Example: 
+import pymysql 
+# Connect to MySQL 
+conn = pymysql.connect ( host='localhost',
+user='root', 
+password='yourpassword', 
+database='testdb' ) 
+cursor = conn.cursor() 
+       # Create a table 
+       cursor.execute('CREATE TABLE IF NOT EXISTS users (id INT, name VARCHAR(100))') 
+       # Commit and close 
+       conn.commit() 
+       conn.close() 
+
+
+2. Creating and executing SQL queries from Python using these connectors.
+• Install:
+pip install mysql-connector-python
+
+• Example:
+import mysql.connector
+
+# Connect to the MySQL database
+connection = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="yourpassword",
+    database="testdb"
+)
+
+cursor = connection.cursor()
+
+# Create table
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS employees (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50),
+    salary FLOAT
+)
+""")
+
+# Insert data
+cursor.execute("INSERT INTO employees (name, salary) VALUES (%s, %s)", ("John Doe", 50000))
+connection.commit()
+
+# Fetch data
+cursor.execute("SELECT * FROM employees")
+for row in cursor.fetchall():
+    print(row)
+
+cursor.close()
+connection.close()
+
+
+Que – 10  Search and Match Functions
+1. Using re.search() and re.match() functions in Python’s re module for pattern matching.
+- re.match() checks for a match only at the beginning of the string.
+
+import re
+re.match("cat", "catfish")   
+re.match("cat", "concatenate")  
+- re.search() checks for a match anywhere in the string.
+re.search("cat", "concatenate")  
+re.search("cat", "dog")  
+        
+• re.match() → beginning of string only.
+• re.search() → anywhere in the string.
+
+
+2. Difference between search and match.
+• re.match() checks for a match only at the beginning of the string. If the pattern doesn’t appear right at the start, it returns None.
+• re.search(), on the other hand, scans the entire string and returns the first match it finds, no matter where it appears.
+
+
