@@ -7,4 +7,5 @@ path("cart",cart,name="cart"),
 path("chackout",chackout,name="chackout"),
 path("contact",contact,name="contact"),
 path("shop",shop,name="shop"),
+path("login-register",login_register,name="login-register"),
 ]

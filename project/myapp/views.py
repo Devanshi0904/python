@@ -15,3 +15,6 @@ def contact(request):
 
 def shop(request):
     return render(request,"shop.html")
+
+def login_register(request):
+    return render(request,"login_register.html")

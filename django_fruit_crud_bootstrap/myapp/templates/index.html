@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fruit-shop</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-5 card p-3 bg-light">
+                <h2>fruit registration</h2>
+                <hr>
+                
+                <form action="" method="post">
+                    {%csrf_token%}
+                    <input type="hidden" name="id" value="{{fru.id}}">
+                    <input type="text" name="name" placeholder="enter fruit name" class = "form-control" value="{{fru.name}}">
+                    <br>
+                    <input type="text" name="price" placeholder="enter fruit price" class = "form-control" value="{{fru.price}}">
+                    <br>
+                    <input type="text" name="colour" placeholder="fruit colour" class = "form-control" value="{{fru.colour}}">
+                    <br>
+                    <input type="submit" class="btn btn-success">
+                    <input type="reset" class="btn btn-primary">
+                </form> 
+            </div>
+
+            <div class="col-1">
+        
+            </div>
+
+            <div class="col-6 card p-3 bg-light">
+                <h2>fruit details</h2>
+                <hr>
+                <table class="table">
+                    <tr>
+                        <th>id</th>
+                        <th>fruit</th>
+                        <th>price</th>
+                        <th>colour</th>
+                        <th colspan="2">action</th>
+                    </tr>
+                    {%for fru in fruits%}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{fru.name}}</td>
+                        <td>{{fru.price}}</td>
+                        <td>{{fru.colour}}</td>
+                        <td><a href="{%url 'edit'%}?id={{fru.id}}" class="btn btn-primary">edit</a></td>
+                        <td><a href="{%url 'delete'%}?id={{fru.id}}" class="btn btn-danger">delete</a></td>
+                    </tr>
+                    {%endfor%}
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+    
+</body>
+</html>
