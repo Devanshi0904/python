@@ -22,6 +22,7 @@
                     <br>
                     <input type="text" name="colour" placeholder="fruit colour" class = "form-control" value="{{fru.colour}}">
                     <br>
+                    
                     <input type="submit" class="btn btn-success">
                     <input type="reset" class="btn btn-primary">
                 </form> 
@@ -40,6 +41,7 @@
                         <th>fruit</th>
                         <th>price</th>
                         <th>colour</th>
+                        <th>image</th>
                         <th colspan="2">action</th>
                     </tr>
                     {%for fru in fruits%}
@@ -48,6 +50,7 @@
                         <td>{{fru.name}}</td>
                         <td>{{fru.price}}</td>
                         <td>{{fru.colour}}</td>
+                        <td><img src="media/{{fru.image}}" alt="{{fru.image}}" height="50px" width="50px"></td>
                         <td><a href="{%url 'edit'%}?id={{fru.id}}" class="btn btn-primary">edit</a></td>
                         <td><a href="{%url 'delete'%}?id={{fru.id}}" class="btn btn-danger">delete</a></td>
                     </tr>

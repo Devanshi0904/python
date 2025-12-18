@@ -8,8 +8,8 @@ def index(request):
         name = request.POST['name']
         price= request.POST["price"]
         colour = request.POST['colour']
-
-        fruit.objects.create(name=name,price=price,colour=colour)
+        image = request.FILES['image']
+        fruit.objects.create(name=name,price=price,colour=colour,image=image)
         return render(request,"index.html",{"fruits":fruits})
 
     else: 
@@ -28,11 +28,14 @@ def edit_fruit(request):
         name = request.POST['name']
         price= request.POST["price"]
         colour = request.POST['colour']
+        
 
         fru = fruit.objects.get(pk=id)
         fru.name=name
         fru.price=price
         fru.colour=colour
+        if request .FILES:
+            fru.image = request.FILES['image']
         fru.save()
         
         return render(request,"index.html",{"fruits":fruits})
