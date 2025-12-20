@@ -6,6 +6,7 @@ def home(request):
     return render(request,"home.html")
 
 def register_student(request):
+    products = product.objects.all()
     id = request.POST.get('id')
     name = request.POST.get('name')
     email = request.POST.get('email')
@@ -23,15 +24,15 @@ def register_student(request):
         return render(request, 'home.html' , {'success': 'student update successfully'})
 
 
-def display (request):
-    students = student.objects.all()
-    return render(request,"display.html",{"students":students})
+# def display (request):
+#     students = student.objects.all()
+#     return render(request,"display.html",{"students":students})
 
 def delete_student (request):
     id = request.GET.get("id")
     st = student.objects.get(pk=id)
     st.delete()
-    return redirect("display")
+    return redirect("home")
 
 def edit_student (request):
     id = request.GET.get("id")

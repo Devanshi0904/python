@@ -8,7 +8,7 @@ def index(request):
     if request.method=='POST':
         cat = request.POST['cat']
         name = request.POST['name']
-        price= request.POST["price"]
+        price= request.POST["price"]    
         qty = request.POST['qty']
         image = request.FILES['image']
         category = Category.objects.get(pk=cat)
