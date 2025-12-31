@@ -6,7 +6,11 @@ from myapp.models import *
 
 # Create your views here.
 def index (request):
-    products = Product.objects.all()
+    if request.GET:
+        cid = request.GET['cid']
+        products = Product.objects.filter(category_id= cid)
+    else:
+        products = Product.objects.all()
     categories = Category.objects.all()
     return render(request,"index.html",{"products":products,"categories":categories})
 
@@ -26,7 +30,9 @@ def compare (request):
     return render(request,"compare.html")
 
 def details (request):
-    return render(request,"details.html")
+    pid = request.GET['pid']
+    product = Product.objects.get(pk=id)
+    return render(request,"details.html",{"product":product})
 
 def login_register (request):
     return render(request,"login-register.html")
