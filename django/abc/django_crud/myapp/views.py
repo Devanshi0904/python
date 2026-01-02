@@ -3,10 +3,11 @@ from myapp.models import student
 
 # Create your views here.
 def home(request):
-    return render(request,"home.html")
+    students = student.objects.all()
+    return render(request,"home.html",{"students":students})
 
 def register_student(request):
-    products = product.objects.all()
+    students = student.objects.all()
     id = request.POST.get('id')
     name = request.POST.get('name')
     email = request.POST.get('email')
@@ -14,14 +15,14 @@ def register_student(request):
 
     if not id :
         student.objects.create(name=name , email=email , age=age)
-        return render(request, 'home.html' , {'success': 'student registered successfully'})
+        return render(request, 'home.html' , {'success': 'student registered successfully',"students":students})
     else:
         st = student.objects.get(pk=id)
         st.name = name
         st.email = email
         st.age = age
         st.save()
-        return render(request, 'home.html' , {'success': 'student update successfully'})
+        return render(request, 'home.html' , {'success': 'student update successfully',"students":students})
 
 
 # def display (request):
@@ -32,9 +33,13 @@ def delete_student (request):
     id = request.GET.get("id")
     st = student.objects.get(pk=id)
     st.delete()
+    students = student.objects.all()
     return redirect("home")
 
 def edit_student (request):
+   
+
     id = request.GET.get("id")
     st = student.objects.get(pk=id)
-    return render(request,'home.html',{'st':st})
+    students = student.objects.all()
+    return render(request,'home.html',{'st':st,"students":students})

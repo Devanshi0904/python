@@ -30,7 +30,7 @@
         <div class="categories__container swiper">
           <div class="swiper-wrapper">
             {%for cat in categories%}
-            <a href="{%url 'index'%}?cid={{cid.id}}" class="category__item swiper-slide">
+            <a href="{%url 'index'%}?cid={{cat.id}}" class="category__item swiper-slide">
               <img
                 src="media/{{cat.image}}"
                 alt=""

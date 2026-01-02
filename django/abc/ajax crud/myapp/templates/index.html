@@ -12,6 +12,8 @@
         $(document).ready(function(){
             // alert("ok")
             viewStudent()
+
+            $("#upbtn").hide()
         });
 
         function addStudent(){
@@ -29,6 +31,8 @@
                 $("#phone").val("")
 
                 viewStudent()
+
+
             })
         }
         
@@ -40,16 +44,82 @@
                 rt.students.map(ele => {
                     // alert(ele.name)
                     // alert(rt)
-                    rows+=`<tr><td>${ele.id}</td><td>${ele.name}</td><td>${ele.email}</td><td>${ele.phone}</td><td><button id="${ele.edit}">edit</td><td><button id="${ele.delete}">delete</td></tr>`
+                    rows += `<tr>
+                        <td>${ele.id}</td>
+                        <td>${ele.name}</td>
+                        <td>${ele.email}</td>
+                        <td>${ele.phone}</td>
+                        <td><button class='btn btn-primary' onclick='getbyid(${ele.id})'>edit</td>
+                        <td><button class='btn btn-danger' onclick='deletestundent(${ele.id})'>delete</td>
+                        </tr>`
                 })
                 // alert(rows)
                 $("#tdata").html(rows)
-            })
-            
-
-            
-
+            })    
         }
+        function deletestundent(sid){
+            $.get('delete', { sid }, function (rt) {
+                // alert(rt)        
+                viewStudent()
+            })
+        }
+        function getbyid(sid){
+            $.get('getbyid', { sid }, function (rt) {
+                
+                $("#id").val(rt.student[0].id)
+                $("#name").val(rt.student[0].name)
+                $("#email").val(rt.student[0].email)
+                $("#phone").val(rt.student[0].phone)
+
+                $("#upbtn").show()
+                $("#smbtn").hide()
+            })
+        }
+        function updatestudent( ){
+
+            var id = $("#id").val()
+            var name = $("#name").val()
+            var email = $("#email").val()
+            var phone = $("#phone").val()
+            var csrfmiddlewaretoken  = $('input[name="csrfmiddlewaretoken"]').val()
+            
+
+            $.post('update', { csrfmiddlewaretoken,id,name,email,phone }, function (rt) {
+                alert(rt)
+
+                $("#id").val()
+                $("#name").val("")
+                $("#email").val("")
+                $("#phone").val("")
+
+                viewStudent()
+
+                $("#upbtn").hide()
+                $("#smbtn").show()
+
+            })
+        }
+
+        function search(value){
+            $.get('search', { value }, function (rt) {
+    
+
+                var rows = ""
+                rt.students.map(ele => {
+
+                    rows += `<tr>
+                        <td>${ele.id}</td>
+                        <td>${ele.name}</td>
+                        <td>${ele.email}</td>
+                        <td>${ele.phone}</td>
+                        <td><button class='btn btn-primary' onclick='getbyid(${ele.id})'>edit</td>
+                        <td><button class='btn btn-danger' onclick='deletestundent(${ele.id})'>delete</td>
+                        </tr>`
+                })
+                $("#tdata").html(rows)
+            })
+        }
+
         
         </script>
 
@@ -59,6 +129,7 @@
         <div class="card shadow-lg p-4 mb-5 rounded" style="background-color: rgb(228, 159, 242);">
             <h2 class="text-center text-black mb-4">Student Registration</h2>
             {%csrf_token%}
+            <input type="hidden" id="id">
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
                     <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
@@ -72,13 +143,16 @@
                     <input type="text" class="form-control" id="phone" placeholder="Enter your phone number" required>
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-success me-2" onclick="addStudent()">Submit</button>
+                    <button type="submit" class="btn btn-success me-2" id="smbtn" onclick="addStudent()">Submit</button>
+                    <button type="submit" class="btn btn-success me-2" id="upbtn" onclick="updatestudent()">update </button>
                     <button type="reset" class="btn btn-secondary">Reset</button>
                 </div>
         </div>
 
         <div class="card shadow p-4 rounded" style="background-color:rgb(228, 159, 242);    ">
             <h2 class="text-center text-dark mb-4">Student Details</h2>
+            <input type="text" placeholder="search" onkeyup="search(value)" class="form-control">
+            <br>
             <div class="table-responsive">
                 <table class="table table-bordered table-striped table-hover">
                     <thead style="background-color:#9370DB; color:#fff;">
