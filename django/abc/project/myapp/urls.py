@@ -14,4 +14,8 @@ urlpatterns = [
     path("user-registration",user_registration,name='user-registration'),
     path("user-login",user_login,name='user-login'),
     path("user-logout",user_logout,name='user-logout'),
-]
+    path("getproducts",getproducts,name='getproducts'),
+    path("getcategories",getcategories,name='getcategories'),
+    path("searchproduct",searchproduct,name='searchproduct'),
+    path("addtocart",addtocart,name='addtocart')
+]   
