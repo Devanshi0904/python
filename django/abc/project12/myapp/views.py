@@ -4,6 +4,9 @@ from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.decorators import login_required
 from myapp.models import *
 from django.http import HttpResponse,JsonResponse
+import razorpay
+import datetime
+
 
 # Create your views here.
 def index (request):
@@ -40,7 +43,12 @@ def accounts (request):
 @login_required(login_url="login-register")
 def cart(request):
     carts = Cart.objects.filter(user=request.user)
-    return render(request,"cart.html",{"carts":carts})
+
+    sum = 0
+    for c in carts:
+        sum+=c.total_price()
+
+    return render(request, 'cart.html',{"carts":carts,"total":int(sum)})
 
 def addtocart(request):
     pid = request.GET.get('pid')
@@ -59,6 +67,24 @@ def addtocart(request):
         else:
             Cart.objects.create(product=product,user=user,qty=1)
             return HttpResponse("product added into cart")
+
+def removecart(request):
+    cid = request.GET['cid']
+    cart = Cart.objects.get(pk=cid)
+    cart.delete()
+    return HttpResponse("Cart deleted")
+
+def changeqty(request):
+    cid = request.GET['cid']
+    qty = request.GET['qty']
+    cart = Cart.objects.get(pk=cid)
+
+    if int(qty)<=0:
+        cart.delete()
+    else:
+        cart.qty = qty
+        cart.save()
+    return HttpResponse("Cart updated")
 
 @login_required(login_url="login-register")
 def checkout (request):
@@ -110,4 +136,34 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect("index")
+
+def payment(request):
+
+    amt = request.GET['amt']
+    client = razorpay.Client(auth=("rzp_test_S1Hsg7YN8MlwDU", "ZKs1rK1XnjRDNd4uxjP2NcRJ"))
+
+    
+    data = { "amount": int(amt)*100, "currency": "INR", "receipt": "order_rcptid_11" }
+    payment = client.order.create(data=data) # Amount is in currency subunits.
+    
+    return JsonResponse(payment)
+
+
+def makeorder(request):
+    payid = request.GET['payid']
+    date = datetime.datetime.now()
+    user = request.user
+
+    carts = Cart.objects.filter(user=user)
+    sum = 0
+    for i in carts:
+        sum += i.total_price()
+
+    order = Order.objects.create(user=user,data=date,total=sum,payid=payid)
+
+    for c in carts:
+        OrderDetails.objects.create(order=order,product=c.product,qty=c.qty,price=c.product.price)
+        c.delete()
+    
+    return HttpResponse("order placed successfully")
 
