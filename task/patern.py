@@ -161,16 +161,16 @@
 
 
  
-print("========= damru ==========")
+# print("========= damru ==========")
 
-lines = 10
-for i in range(1,lines+1):
-    for j in range(1,lines+1):
-        if j==1 or j==lines or j==i or j==lines+1-i:
-            print("*",end="")
-        else :
-            print(" ",end="")
-    print()
+# lines = 10
+# for i in range(1,lines+1):
+#     for j in range(1,lines+1):
+#         if j==1 or j==lines or j==i or j==lines+1-i:
+#             print("*",end="")
+#         else :
+#             print(" ",end="")
+#     print()
 
 
 
