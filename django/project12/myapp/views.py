@@ -6,6 +6,8 @@ from myapp.models import *
 from django.http import HttpResponse,JsonResponse
 import razorpay
 import datetime
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 # Create your views here.
@@ -38,7 +40,8 @@ def getcategories(request):
 
 @login_required(login_url="login-register")
 def accounts (request):
-    return render(request,"accounts.html")
+    orders  = Order.objects.filter(user=request.user)
+    return render(request,"accounts.html",{"orders":orders})
 
 @login_required(login_url="login-register")
 def cart(request):
@@ -159,11 +162,28 @@ def makeorder(request):
     for i in carts:
         sum += i.total_price()
 
-    order = Order.objects.create(user=user,data=date,total=sum,payid=payid)
+    order = Order.objects.create(user=user,date=date,total=sum,payid=payid)
 
+    rows=''
+    count=0
     for c in carts:
         OrderDetails.objects.create(order=order,product=c.product,qty=c.qty,price=c.product.price)
+        rows+=f"<tr><td>{count}</td><td>{c.product.name}</td><td>{c.product.price}</td><td>{c.qty}</td><td>{c.total_price()}</td></tr>"
         c.delete()
+        count+=1
+
+
+    tbl = f"<table border='1'><thead><tr><th>payid : {order.payid}</th><th>paytype : {order.paytype}</th><th>Total</th></tr><tr><th>order date : {order.date}</th><th>status : {order.status}</th><th>{order.total}</th></tr><tr><th>Id</th><th>Name</th><th>Price</th><th>Qty</th><th>Total</th></tr></thead><tbody>{rows}</tbody></table>"
+                    
+                    
+                  
+
+    try:
+        send_mail("order confirmation", "your order placed successfully", settings.EMAIL_HOST_USER, [user.email],html_message=tbl)
+        
+    except Exception as e:
+        
+        print(e)
     
     return HttpResponse("order placed successfully")
 
