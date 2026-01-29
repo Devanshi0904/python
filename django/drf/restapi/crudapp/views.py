@@ -27,9 +27,20 @@ def viewbyid(request,id):
     ser = StudentSerializer(student)
     return Response({'data':ser.data})
 
-
+@api_view(['PUT'])
 def update_student(request,id):
     sdata = request.data
     cdata = Student.objects.get(pk=id)
     ser = StudentSerializer(cdata,sdata,partial=True)
-    return Response()
+    if not ser.is_valid():
+        return Response({"errors":ser.errors,"message":"something went wrong"})
+    else:
+        ser.save()
+        return Response({'data':ser.data,"message":"data insterted sucessfully"})
+    
+@api_view(['DELETE'])
+def delete_student(request,id):
+    sdata = Student.objects.get(pk=id)
+    sdata.delete()
+    return Response({"message":"data deleted"})
+    
