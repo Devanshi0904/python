@@ -15,3 +15,4 @@ class Emp (models.Model):
     name = models.CharField(max_length=50)
     email = models.EmailField()
     age = models.IntegerField()
+    image = models.ImageField(upload_to="image",default="test.png")

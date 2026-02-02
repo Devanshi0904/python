@@ -5,11 +5,13 @@ from rest_framework.decorators import api_view,APIView,permission_classes
 from company.models import *
 from company.serializer import *
 from rest_framework.permissions import AllowAny,IsAdminUser,IsAuthenticated
+from company.permission import isSuperUser
 
 # Create your views here.
 
 class DeptApi(APIView):
 
+    permission_classes=[isSuperUser]
     def get(self,request):
         depts = Dept.objects.all()
         ser = DeptSerializer(depts,many=True)
@@ -56,7 +58,7 @@ def addEmp(request,id):
         return Response({"data":ser.data})
     
 @api_view(['GET'])
-@permission_classes([IsAdminUser])
+# @permission_classes([IsAdminUser])
 def getemps(request):
 
     emps = Emp.objects.all()

@@ -35,38 +35,41 @@
 # calc(10,20)
 
 
+x = [1,2,3,]*2
+print(x)
 
 
-def onlyNumber(func):
-    def wrapper(*a):
-        if not str(a[0]).isdigit():
-            print("only number allowed")
-        else:
-            func(*a)
-    return wrapper
+
+# def onlyNumber(func):
+#     def wrapper(*a):
+#         if not str(a[0]).isdigit():
+#             print("only number allowed")
+#         else:
+#             func(*a)
+#     return wrapper
 
 
-def onlycharcter(func):
-    def wrapper(*a):
-        if not str(a[0]).isalpha():
-            print("only charter allowed")
-        else:
-            func(*a)
-    return wrapper
+# def onlycharcter(func):
+#     def wrapper(*a):
+#         if not str(a[0]).isalpha():
+#             print("only charter allowed")
+#         else:
+#             func(*a)
+#     return wrapper
 
 
-def onlyNumAlpha(func):
-    def wrapper(*a):
-        if not str(a[0]).isalnum():
-            print("only number and chater allowed")
-        else:
-            func(*a)
-    return wrapper
+# def onlyNumAlpha(func):
+#     def wrapper(*a):
+#         if not str(a[0]).isalnum():
+#             print("only number and chater allowed")
+#         else:
+#             func(*a)
+#     return wrapper
     
 
 
-@onlyNumAlpha
-def myfunc(a):
-    print(a)
+# @onlyNumAlpha
+# def myfunc(a):
+#     print(a)
 
-myfunc("@")
+# myfunc("@")
