@@ -154,6 +154,8 @@ def payment(request):
 
 def makeorder(request):
     payid = request.GET['payid']
+    adr = Address.objects.get(pk=request.GET['adr'])
+    
     date = datetime.datetime.now()
     user = request.user
 
@@ -162,7 +164,7 @@ def makeorder(request):
     for i in carts:
         sum += i.total_price()
 
-    order = Order.objects.create(user=user,date=date,total=sum,payid=payid)
+    order = Order.objects.create(user=user,date=date,total=sum,payid=payid,address=adr)
 
     rows=''
     count=0
@@ -186,4 +188,16 @@ def makeorder(request):
         print(e)
     
     return HttpResponse("order placed successfully")
+
+
+def add_address(request):
+    user = request.user
+    adr = request.GET.get("address")
+    adr = Address.objects.create(user=user,address=adr)
+    return HttpResponse("successfully address stored")
+
+def get_address(request):
+    address = Address.objects.filter(user=request.user)
+    return JsonResponse({"adr":list(address.values())})
+
 

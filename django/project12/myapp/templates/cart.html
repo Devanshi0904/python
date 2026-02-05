@@ -75,46 +75,24 @@
         </div>
 
         <div class="cart__group grid">
-          <div>
-            <div class="cart__shippinp">
-              <h3 class="section__title">Calculate Shipping</h3>
-              <form action="" class="form grid">
-                <input
-                  type="text"
-                  class="form__input"
-                  placeholder="State / Country"
-                />
-                <div class="form__group grid">
-                  <input type="text" class="form__input" placeholder="City" />
+         <div class="">
+
+              <h3 class="tab__header">Shipping Address</h3>
+              <div class="tab__body">
+                
                   <input
                     type="text"
+                    placeholder="address"
+                    id="adr"
                     class="form__input"
-                    placeholder="PostCode"
                   />
+                  <button class="btn btn--md" onclick="addAddress()">add address</button>
+                  
+                  <br>
+                <div id="alladr">
+                
                 </div>
-                <div class="form__btn">
-                  <button class="btn flex btn--sm">
-                    <i class="fi-rs-shuffle"></i> Update
-                  </button>
-                </div>
-              </form>
-            </div>
-            <div class="cart__coupon">
-              <h3 class="section__title">Apply Coupon</h3>
-              <form action="" class="coupon__form form grid">
-                <div class="form__group grid">
-                  <input
-                    type="text"
-                    class="form__input"
-                    placeholder="Enter Your Coupon"
-                  />
-                  <div class="form__btn">
-                    <button class="btn flex btn--sm">
-                      <i class="fi-rs-label"></i> Aplly
-                    </button>
-                  </div>
-                </div>
-              </form>
+              </div>
             </div>
           </div>
 
@@ -207,7 +185,9 @@
           // alert(response.razorpay_payment_id);
           // alert(response.razorpay_order_id);
           // alert(response.razorpay_signature)
-          $.get("makeorder", { "payid": response.razorpay_payment_id }, function (rt) {
+          var adr = $('input[name="adr"]:checked').val();
+              
+          $.get("makeorder", { "payid": response.razorpay_payment_id,adr}, function (rt) {
             alert(rt)
             location.reload()
           })
@@ -241,6 +221,32 @@
 
 
   }
+
+  $(document).ready(function(){
+        get_address()
+      })
+
+      function addAddress(){
+        var address = $('#adr').val()
+        $.get('add_address',  {address},function(rt){
+          // alert(rt)
+          get_address()
+        })
+      }
+
+      function get_address(){
+        $.get("get_address",{},function(rt){
+          var adr=""
+          rt.adr.map(ele =>{
+            adr+=`<address class="address">
+                <input type="radio" name="adr" value="${ele.id}">
+                  ${ele.address}
+                </address>
+                <a href="#" class="edit">Edit</a>`
+          })
+          $("#alladr").html(adr)
+        })
+      }
 </script>
 
 {%endblock%}

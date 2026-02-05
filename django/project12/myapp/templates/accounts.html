@@ -59,12 +59,14 @@
                       <th>payid : {{od.payid}}</th>
                       <th>paytype : {{od.paytype}}</th>
                       <th>Total</th>
+                      <th>Address</th>
                       
                     </tr>
                     <tr>
                       <th>order date : {{od.date}}</th>
                       <th>status : {{od.status}}</th>
                       <th>{{od.total}}</th>
+                      <th>{{od.address.address}}</th>
                       
                     </tr>
                     <tr>
@@ -107,16 +109,22 @@
               </div>
             </div>
             <div class="tab__content" content id="address">
+
               <h3 class="tab__header">Shipping Address</h3>
               <div class="tab__body">
-                <address class="address">
-                  3522 Interstate <br />
-                  75 Business Spur, <br />
-                  Sault Ste. <br />
-                  Marie, Mi 49783
-                </address>
-                <p class="city">New York</p>
-                <a href="#" class="edit">Edit</a>
+                
+                  <input
+                    type="text"
+                    placeholder="address"
+                    id="adr"
+                    class="form__input"
+                  />
+                  <button class="btn btn--md" onclick="addAddress()">add address</button>
+                  
+                  <br>
+                <div id="alladr">
+                
+                </div>
               </div>
             </div>
             <div class="tab__content" content id="change-password">
@@ -173,5 +181,32 @@
         </div>
       </section>
     </main>
+
+    <script>
+      $(document).ready(function(){
+        get_address()
+      })
+
+      function addAddress(){
+        var address = $('#adr').val()
+        $.get('add_address',  {address},function(rt){
+          // alert(rt)
+          get_address()
+        })
+      }
+
+      function get_address(){
+        $.get("get_address",{},function(rt){
+          var adr=""
+          rt.adr.map(ele =>{
+            adr+=`<address class="address">
+                  ${ele.address}
+                </address>
+                <a href="#" class="edit">Edit</a>`
+          })
+          $("#alladr").html(adr)
+        })
+      }
+    </script>
 
 {%endblock%}
