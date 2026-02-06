@@ -98,7 +98,7 @@ def compare (request):
 
 def details (request):
     pid = request.GET['pid']
-    product = Product.objects.get(pk=id)
+    product = Product.objects.get(pk=pid)
     return render(request,"details.html",{"product":product})
 
 def login_register (request):
@@ -175,7 +175,7 @@ def makeorder(request):
         count+=1
 
 
-    tbl = f"<table border='1'><thead><tr><th>payid : {order.payid}</th><th>paytype : {order.paytype}</th><th>Total</th></tr><tr><th>order date : {order.date}</th><th>status : {order.status}</th><th>{order.total}</th></tr><tr><th>Id</th><th>Name</th><th>Price</th><th>Qty</th><th>Total</th></tr></thead><tbody>{rows}</tbody></table>"
+    tbl = f"<table border='1'><thead><tr><th>payid : {order.payid}</th><th>paytype : {order.paytype}</th><th>Total</th><th>address</th></tr><tr><th>order date : {order.date}</th><th>status : {order.status}</th><th>{order.total}</th><th>{order.address.address}</th></tr><tr><th>Id</th><th>Name</th><th>Price</th><th>Qty</th><th>Total</th></tr></thead><tbody>{rows}</tbody></table>"
                     
                     
                   
@@ -200,4 +200,27 @@ def get_address(request):
     address = Address.objects.filter(user=request.user)
     return JsonResponse({"adr":list(address.values())})
 
+def forgotpass(request):
+    return render(request,"forgot.html")
+
+def password_sendmail(request):
+    email = request.POST['email']
+    try:
+        user = User.objects.get(email=email)
+        send_mail("password recovery", f"http://127.0.0.1:8000/resetpass?email={email}", settings.EMAIL_HOST_USER, [email])
+
+        return render(request,"forgot.html",{"err":"mail sent sucessfully"})
+    except Exception as e:
+        return render(request,"forgot.html",{"err":"somthing went wrong"})
+    
+def resetpass(request):
+    if request.method == 'GET': 
+        email = request.GET['email']
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+        user = User.objects.get(email=email)
+        user.set_password(password)
+        user.save()
+    return render(request,"resetpass.html",{"email":email})
 

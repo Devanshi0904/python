@@ -18,10 +18,15 @@ urlpatterns = [
     path("getcategories",getcategories,name='getcategories'),
     path("searchproduct",searchproduct,name='searchproduct'),
     path("addtocart",addtocart,name='addtocart'),
-     path("removecart",removecart,name="removecart"),
+    path("removecart",removecart,name="removecart"),
     path("changeqty",changeqty,name="changeqty"),
     path("payment",payment,name="payment"),
     path("makeorder",makeorder,name="makeorder"),
     path("add_address",add_address,name='add_address'),
-    path("get_address",get_address,name="get_address")
+    path("get_address",get_address,name="get_address"),
+    path("forgotpass",forgotpass,name="forgotpass"),
+    path("password-sendmail",password_sendmail,name="password-sendmail"),
+    path("resetpass",resetpass,name="resetpass")
+    
+    
 ]   

@@ -813,7 +813,7 @@
         rt.products.map(ele => {
             pro += `<div class="product__item">
                 <div class="product__banner">
-                  <a href="{%url 'details'%}?pid={{product.id}}" class="product__images">
+                  <a href="{%url 'details'%}?pid=${ele.id}" class="product__images">
                     <img
                       src="media/${ele.image}"
                       alt=""
@@ -899,7 +899,7 @@
         rt.products.map(ele => {
             pro += `<div class="product__item">
                 <div class="product__banner">
-                  <a href="{%url 'details'%}?pid={{product.id}}" class="product__images">
+                  <a href="{%url 'details'%}?pid=${ele.id}" class="product__images">
                     <img
                       src="media/${ele.image}"
                       alt=""
