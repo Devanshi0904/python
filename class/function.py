@@ -79,6 +79,62 @@
 #         square(a)
 # square(2)
 
+# def factorial(n):
+#     if n == 0:
+#         return 1 
+#     else:
+#         return n * factorial(n-1)
+
+# print(factorial(10))
+  
+# =====second largest number=============
+# a = [1,5,8,9,6,3,4,2,6]
+# a = list(set(a))
+# a.sort()
+# print(a[-2])
+
+
+# ======= plindormr =======
+# s = input("enter the num")
+# if s==s[::-1]:
+#     print("yes")
+# else:
+#     print("no")
+
+# ======== fibbonacciii =========
+
+# n = 10
+
+# a=0
+# b=1
+# c=0
+# for i in range(n):
+#     print(a,end="")
+#     a , b = b , a+b
+# while c<n:
+    # print(a)
+    # c=a+b
+    # a=b
+    # b=c
+    # c+=1
+
+
+# =========== leap year ============
+# year =2004
+# if year %4 ==0:
+#     print('yes')
+# else:
+#     print("no")
+
+# ========== pattern ============
+# for i in range(5):
+#     print("*"*(i+1))
+
+# for i in range(5,0,-1):
+#     print("*"*i)
+
+
+
 
 
 
@@ -200,6 +256,6 @@
 
 
 
-l = ["tisha","devanshi","zeel","dhruvin","sunil"]
-k = map(lambda a :"hello :"+a ,l)
-print(list(k))
+# l = ["tisha","devanshi","zeel","dhruvin","sunil"]
+# k = map(lambda a :"hello :"+a ,l)
+# print(list(k))

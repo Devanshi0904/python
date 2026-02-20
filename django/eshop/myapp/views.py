@@ -200,6 +200,24 @@ def get_address(request):
     address = Address.objects.filter(user=request.user)
     return JsonResponse({"adr":list(address.values())})
 
+from django.views.decorators.csrf import csrf_exempt
+
+@login_required(login_url="login-register")
+def edit_address(request):
+
+    if request.method == "POST":
+        aid = request.POST.get("aid")
+        new_address = request.POST.get("address")
+
+        adr = Address.objects.get(id=aid, user=request.user)
+        adr.address = new_address
+        adr.save()
+
+        return HttpResponse("Address Updated Successfully")
+
+    return HttpResponse("Invalid Request")
+
+
 def forgotpass(request):
     return render(request,"forgot.html")
 
@@ -207,8 +225,8 @@ def password_sendmail(request):
     email = request.POST['email']
     try:
         user = User.objects.get(email=email)
-        send_mail("password recovery", f"http://127.0.0.1:8000/resetpass?email={email}", settings.EMAIL_HOST_USER, [email])
-
+        send_mail("password recovery", f"Devanshi1.pythonanywhere.com/restpass?email={email}", settings.EMAIL_HOST_USER, [email])
+        
         return render(request,"forgot.html",{"err":"mail sent sucessfully"})
     except Exception as e:
         return render(request,"forgot.html",{"err":"somthing went wrong"})

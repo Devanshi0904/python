@@ -48,9 +48,9 @@ import re
 
 
 
-password = input("enter your passward :")
-a = re.match('^[0-9A-Za-z]+@[0-9A-Za-z]+$',password)
-if 5 < len(password) <= 16:
-    print("valid passward")
-else:
-    print("invalid passward")
+# password = input("enter your passward :")
+# a = re.match('^[0-9A-Za-z]+@[0-9A-Za-z]+$',password)
+# if 5 < len(password) <= 16:
+#     print("valid passward")
+# else:
+#     print("invalid passward")

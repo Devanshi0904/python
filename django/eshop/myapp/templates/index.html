@@ -874,9 +874,9 @@
       $.get("getcategories", {}, function (rt) { 
         // alert(rt)
 
-        var cats =""
+        var adr =""
         rt.categories.map(ele => {
-            cats += `<a  class="category__item swiper-slide" onclick='getproducts(${ele.id})'>
+            adr += `<a  class="category__item swiper-slide" onclick='getproducts(${ele.id})'>
               <img
                 src="media/${ele.image}"
                 alt=""
@@ -885,7 +885,7 @@
               <h3 class="category__title">${ele.name}</h3>
             </a>`
         })
-        $("#catdata").html(cats)
+        $("#adr").html(adr)
       })
     }
 

@@ -123,7 +123,38 @@
                   
                   <br>
                 <div id="alladr">
-                
+
+
+                {% for a in address %}
+
+                <div>
+
+                <!-- Address Show -->
+                <span id="show{{a.id}}">
+                    {{a.address}}
+                </span>
+
+                <!-- Address Edit Box -->
+                <span id="edit{{a.id}}" style="display:none;">
+                    <input type="text" id="input{{a.id}}" value="{{a.address}}">
+                    
+                    <button onclick="updateAddress('{{a.id}}')">
+                        Update
+                    </button>
+                </span>
+
+                <br><br>
+
+                <button onclick="editAddress('{{a.id}}')">
+                    Edit
+                </button>
+
+                </div>
+
+                {% endfor %}
+
+                <button onclick="updateAddress()">Update</button>
+
                 </div>
               </div>
             </div>
@@ -187,6 +218,8 @@
         get_address()
       })
 
+     
+
       function addAddress(){
         var address = $('#adr').val()
         $.get('add_address',  {address},function(rt){
@@ -202,11 +235,38 @@
             adr+=`<address class="address">
                   ${ele.address}
                 </address>
-                <a href="#" class="edit">Edit</a>`
+                <a href="{%url 'edit_address'%}" class="edit">Edit</a>`
           })
+          
           $("#alladr").html(adr)
         })
       }
+      
+
+
+     function editAddress(id){
+      document.getElementById("show"+id).style.display="none";
+      document.getElementById("edit"+id).style.display="inline";
+    }
+
+    function updateAddress(id){
+
+        let new_address = document.getElementById("input"+id).value;
+
+        let formdata = new FormData();
+        formdata.append("aid",id);
+        formdata.append("address",new_address);
+
+        fetch("/update_address/",{
+            method:"POST",
+            body:formdata
+        })
+        .then(res=>res.text())
+        .then(data=>{
+            alert(data);
+            location.reload();
+        })
+    }
     </script>
 
 {%endblock%}

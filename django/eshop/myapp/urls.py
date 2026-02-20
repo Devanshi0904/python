@@ -26,7 +26,6 @@ urlpatterns = [
     path("get_address",get_address,name="get_address"),
     path("forgotpass",forgotpass,name="forgotpass"),
     path("password-sendmail",password_sendmail,name="password-sendmail"),
-    path("resetpass",resetpass,name="resetpass")
-    
-    
+    path("resetpass",resetpass,name="resetpass"),
+    path("edit_address",edit_address,name="edit_address"),
 ]   
