@@ -88,9 +88,36 @@
                   />
                   <button class="btn btn--md" onclick="addAddress()">add address</button>
                   
-                  <br>
+                  <br><br>
+                  <input type="hidden" id="edit_id">
+                  <input type="text" id="edit_address" class="form__input" placeholder="Edit address">
+                  <button class="btn btn--md" onclick="updateAddress()">Update</button>
                 <div id="alladr">
-                
+                  <div style="display:grid; grid-template-columns: 60% 40%; gap:20px;">
+
+                    <!-- LEFT -->
+                    <div>
+                      <h3>Shipping Address</h3>
+                      <input type="radio" onclick="updateMap()">
+                      <input type="text" id="adr" class="form__input" placeholder="New address">
+                      <button onclick="addAddress()">Add</button>
+
+                      <div id="alladr"></div>
+                    </div>
+
+                    <!-- RIGHT -->
+                    <div>
+                      <h3 class="tab__header">Map</h3>
+
+                      <iframe
+                        id="map"
+                        style="width:100%; height:350px; border:1px solid #ccc;"
+                        src="https://www.google.com/maps?q=India&output=embed"
+                        loading="lazy">
+                      </iframe>
+                    </div>
+
+                  </div>
                 </div>
               </div>
             </div>
@@ -166,87 +193,125 @@
 
 <script>
 
-  document.getElementById('rzp-button1').onclick = function (e) {
+      document.getElementById('rzp-button1').onclick = function (e) {
 
-    e.preventDefault();
-    var amt = $("#amt").html()
+        e.preventDefault();
+        var amt = $("#amt").html()
 
-    $.get("payment", { amt }, function (rt) {
+        $.get("payment", { amt }, function (rt) {
 
-      var options = {
-        "key": "rzp_test_S1Hsg7YN8MlwDU", // Enter the Key ID generated from the Dashboard
-        "amount": rt.amount, // Amount is in currency subunits. 
-        "currency": "INR",
-        "name": "devanshi",
-        "description": "Test Transaction",
-        "image": "https://example.com/your_logo",
-        "order_id": rt.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-        "handler": function (response) {
-          // alert(response.razorpay_payment_id);
-          // alert(response.razorpay_order_id);
-          // alert(response.razorpay_signature)
-          var adr = $('input[name="adr"]:checked').val();
-              
-          $.get("makeorder", { "payid": response.razorpay_payment_id,adr}, function (rt) {
-            alert(rt)
-            location.reload()
-          })
-        },
-        "prefill": {
-          "name": "<name>",
-          "email": "<email>",
-          "contact": "<phone>"
-        },
-        "notes": {
-          "address": "Razorpay Corporate Office"
-        },
-        "theme": {
-          "color": "#3399cc"
-        }
-      };
-      var rzp1 = new Razorpay(options);
-      rzp1.on('payment.failed', function (response) {
-        alert(response.error.code);
-        alert(response.error.description);
-        alert(response.error.source);
-        alert(response.error.step);
-        alert(response.error.reason);
-        alert(response.error.metadata.order_id);
-        alert(response.error.metadata.payment_id);
-      });
-
-
-      rzp1.open();
-    })
+          var options = {
+            "key": "rzp_test_SF5R7ur5nvvYLR", // Enter the Key ID generated from the Dashboard
+            "amount": rt.amount, // Amount is in currency subunits. 
+            "currency": "INR",
+            "name": "devanshi",
+            "description": "Test Transaction",
+            "image": "https://example.com/your_logo",
+            "order_id": rt.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "handler": function (response) {
+              // alert(response.razorpay_payment_id);
+              // alert(response.razorpay_order_id);
+              // alert(response.razorpay_signature)
+              var adr = $('input[name="adr"]:checked').val();
+                  
+              $.get("makeorder", { "payid": response.razorpay_payment_id,adr}, function (rt) {
+                alert(rt)
+                location.reload()
+              })
+            },
+            "prefill": {
+              "name": "<name>",
+              "email": "<email>",
+              "contact": "<phone>"
+            },
+            "notes": {
+              "address": "Razorpay Corporate Office"
+            },
+            "theme": {
+              "color": "#3399cc"
+            }
+          };
+          var rzp1 = new Razorpay(options);
+          rzp1.on('payment.failed', function (response) {
+            alert(response.error.code);
+            alert(response.error.description);
+            alert(response.error.source);
+            alert(response.error.step);
+            alert(response.error.reason);
+            alert(response.error.metadata.order_id);
+            alert(response.error.metadata.payment_id);
+          });
 
 
-  }
+          rzp1.open();
+        })
 
-  $(document).ready(function(){
+
+      }
+
+      $(document).ready(function(){
         get_address()
       })
 
-      function addAddress(){
-        var address = $('#adr').val()
-        $.get('add_address',  {address},function(rt){
-          // alert(rt)
-          get_address()
-        })
+      
+      $(document).ready(function () {
+          get_address();
+      });
+
+      function addAddress() {
+          let address = $("#adr").val();
+          $.get("/add_address/", { address }, function () {
+              $("#adr").val("");
+              get_address();
+          });
       }
 
-      function get_address(){
-        $.get("get_address",{},function(rt){
-          var adr=""
-          rt.adr.map(ele =>{
-            adr+=`<address class="address">
-                <input type="radio" name="adr" value="${ele.id}">
-                  ${ele.address}
-                </address>
-                <a href="#" class="edit">Edit</a>`
-          })
-          $("#alladr").html(adr)
-        })
+      function get_address() {
+          $.get("/get_address/", function (rt) {
+              let adr = "";
+              rt.adr.forEach(ele => {
+                  adr += `
+                      <div style="margin-bottom:10px;">
+                          <input type="radio"
+                          name="adr"
+                          value="${ele.id}">
+                          <p>${ele.address}</p>
+                          <button onclick="editAddress(${ele.id}, '${ele.address}')">Edit</button>
+                          <button onclick="deleteAddress(${ele.id})">Delete</button>
+                      </div>
+                  `;
+              });
+              $("#alladr").html(adr);
+          });
       }
+
+      function editAddress(id, address) {
+          $("#edit_id").val(id);
+          $("#edit_address").val(address);
+      }
+
+      function updateAddress() {
+          let id = $("#edit_id").val();
+          let address = $("#edit_address").val();
+
+          $.post(`/update_address/${id}/`, {
+              address: address,
+              csrfmiddlewaretoken: '{{ csrf_token }}'
+          }, function () {
+              $("#edit_id").val("");
+              $("#edit_address").val("");
+              get_address();
+          });
+      }
+
+      function deleteAddress(id) {
+          $.post(`/delete_address/${id}/`, {
+              csrfmiddlewaretoken: '{{ csrf_token }}'
+          }, function () {
+              get_address();
+          });
+      }
+      
 </script>
 
 {%endblock%}

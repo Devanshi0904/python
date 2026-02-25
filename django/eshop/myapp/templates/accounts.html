@@ -121,39 +121,16 @@
                   />
                   <button class="btn btn--md" onclick="addAddress()">add address</button>
                   
-                  <br>
-                <div id="alladr">
+                  <br><br>
+                  <input type="hidden" id="edit_id">
+                  <input type="text" id="edit_address" class="form__input" placeholder="Edit address">
+                  <button class="btn btn--md" onclick="updateAddress()">Update</button>
 
+                  <div id="alladr">
 
-                {% for a in address %}
-
-                <div>
-
-                <!-- Address Show -->
-                <span id="show{{a.id}}">
-                    {{a.address}}
-                </span>
-
-                <!-- Address Edit Box -->
-                <span id="edit{{a.id}}" style="display:none;">
-                    <input type="text" id="input{{a.id}}" value="{{a.address}}">
-                    
-                    <button onclick="updateAddress('{{a.id}}')">
-                        Update
-                    </button>
-                </span>
-
-                <br><br>
-
-                <button onclick="editAddress('{{a.id}}')">
-                    Edit
-                </button>
-
-                </div>
-
-                {% endfor %}
-
-                <button onclick="updateAddress()">Update</button>
+                  
+                  
+                <!-- <button onclick="updateAddress()">Update</button> -->
 
                 </div>
               </div>
@@ -218,55 +195,62 @@
         get_address()
       })
 
-     
-
-      function addAddress(){
-        var address = $('#adr').val()
-        $.get('add_address',  {address},function(rt){
-          // alert(rt)
-          get_address()
-        })
-      }
-
-      function get_address(){
-        $.get("get_address",{},function(rt){
-          var adr=""
-          rt.adr.map(ele =>{
-            adr+=`<address class="address">
-                  ${ele.address}
-                </address>
-                <a href="{%url 'edit_address'%}" class="edit">Edit</a>`
-          })
-          
-          $("#alladr").html(adr)
-        })
-      }
       
+      $(document).ready(function () {
+          get_address();
+      });
 
+      function addAddress() {
+          let address = $("#adr").val();
+          $.get("/add_address/", { address }, function () {
+              $("#adr").val("");
+              get_address();
+          });
+      }
 
-     function editAddress(id){
-      document.getElementById("show"+id).style.display="none";
-      document.getElementById("edit"+id).style.display="inline";
-    }
+      function get_address() {
+          $.get("/get_address/", function (rt) {
+              let adr = "";
+              rt.adr.forEach(ele => {
+                  adr += `
+                      <div style="margin-bottom:10px;">
+                          <p>${ele.address}</p>
+                          <button onclick="editAddress(${ele.id}, '${ele.address}')">Edit</button>
+                          <button onclick="deleteAddress(${ele.id})">Delete</button>
+                      </div>
+                  `;
+              });
+              $("#alladr").html(adr);
+          });
+      }
 
-    function updateAddress(id){
+      function editAddress(id, address) {
+          $("#edit_id").val(id);
+          $("#edit_address").val(address);
+      }
 
-        let new_address = document.getElementById("input"+id).value;
+      function updateAddress() {
+          let id = $("#edit_id").val();
+          let address = $("#edit_address").val();
 
-        let formdata = new FormData();
-        formdata.append("aid",id);
-        formdata.append("address",new_address);
+          $.post(`/update_address/${id}/`, {
+              address: address,
+              csrfmiddlewaretoken: '{{ csrf_token }}'
+          }, function () {
+              $("#edit_id").val("");
+              $("#edit_address").val("");
+              get_address();
+          });
+      }
 
-        fetch("/update_address/",{
-            method:"POST",
-            body:formdata
-        })
-        .then(res=>res.text())
-        .then(data=>{
-            alert(data);
-            location.reload();
-        })
-    }
+      function deleteAddress(id) {
+          $.post(`/delete_address/${id}/`, {
+              csrfmiddlewaretoken: '{{ csrf_token }}'
+          }, function () {
+              get_address();
+          });
+      }
+
     </script>
 
 {%endblock%}

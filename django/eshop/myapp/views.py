@@ -1,5 +1,6 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.models import User
+from .models import Address
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.decorators import login_required
 from myapp.models import *
@@ -143,14 +144,13 @@ def user_logout(request):
 def payment(request):
 
     amt = request.GET['amt']
-    client = razorpay.Client(auth=("rzp_test_S1Hsg7YN8MlwDU", "ZKs1rK1XnjRDNd4uxjP2NcRJ"))
+    client = razorpay.Client(auth=("rzp_test_SF5R7ur5nvvYLR", "NgUDBnx9JpMGHTWixBznB0S3"))
 
     
     data = { "amount": int(amt)*100, "currency": "INR", "receipt": "order_rcptid_11" }
     payment = client.order.create(data=data) # Amount is in currency subunits.
     
     return JsonResponse(payment)
-
 
 def makeorder(request):
     payid = request.GET['payid']
@@ -189,34 +189,32 @@ def makeorder(request):
     
     return HttpResponse("order placed successfully")
 
-
 def add_address(request):
     user = request.user
     adr = request.GET.get("address")
     adr = Address.objects.create(user=user,address=adr)
     return HttpResponse("successfully address stored")
 
+@login_required(login_url="login-register")
 def get_address(request):
-    address = Address.objects.filter(user=request.user)
-    return JsonResponse({"adr":list(address.values())})
-
-from django.views.decorators.csrf import csrf_exempt
+    address = Address.objects.filter(user=request.user).values("id", "address")
+    return JsonResponse({"adr": list(address)})
 
 @login_required(login_url="login-register")
-def edit_address(request):
+def update_address(request, id):
+    obj = get_object_or_404(Address, id=id, user=request.user)
 
     if request.method == "POST":
-        aid = request.POST.get("aid")
-        new_address = request.POST.get("address")
+        obj.address = request.POST.get("address")
+        obj.save()
+        return JsonResponse({"status": "success"})
+    
 
-        adr = Address.objects.get(id=aid, user=request.user)
-        adr.address = new_address
-        adr.save()
-
-        return HttpResponse("Address Updated Successfully")
-
-    return HttpResponse("Invalid Request")
-
+@login_required(login_url="login-register")
+def delete_address(request, id):
+    obj = get_object_or_404(Address, id=id, user=request.user)
+    obj.delete()
+    return JsonResponse({"status": "deleted"})
 
 def forgotpass(request):
     return render(request,"forgot.html")
