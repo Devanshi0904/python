@@ -12,9 +12,9 @@ def blog_list(request):
     query = request.GET.get('q')
 
     if query:
-        posts = Post.objects.filter(title__icontains=query)
+        posts = Post.objects.filter(author=request.user, title__icontains=query)
     else:
-        posts = Post.objects.all()
+        posts = Post.objects.filter(author=request.user)
 
     return render(request,'blog_list.html',{'posts':posts})
 

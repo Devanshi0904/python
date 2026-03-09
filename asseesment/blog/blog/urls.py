@@ -3,7 +3,7 @@ from blog.views import *
 
 urlpatterns=[
 
-path('',blog_list,name='blog_list'),
+path('blog_list',blog_list,name='blog_list'),
 
 path('create/',create_post,name='create_post'),
 
@@ -17,7 +17,7 @@ path('comment/<int:post_id>/',add_comment,name='add_comment'),
 
 path('register/',register_user,name='register'),
 
-path('login/',login_user,name='login'),
+path('',login_user,name='login'),
 
 path('logout/',logout_user,name='logout'),
 
