@@ -1,7 +1,28 @@
-num=int(input("enter the number" ))   
+# 1
+# 2
+# 6
+# 24
+# 120
 
-for i in range (1,num+1):
-        factorial = 1
-        for j in range (1,i+1):
-            factorial = factorial*j
-        print(factorial)
+# num=int(input("enter the number" ))   
+
+# for i in range (1,num+1):
+#         factorial = 1
+#         for j in range (1,i+1):
+#             factorial = factorial*j
+#         print(factorial)
+
+# ===========  OR =======
+# 120
+
+# n=5
+# fact=1
+# for i in range(n,0,-1):
+#     fact = fact*n
+#     n-=1
+# print(fact)
+#  ==== OR ====
+# while n!=0:
+#     fact = fact*n
+#     n-=1
+# print(fact)

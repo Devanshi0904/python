@@ -1,11 +1,10 @@
-n=10
-
 a=0
 b=1
-c=0
 
-while(c<=n):
-    print(c)
-    c=a+b
-    a=b
-    b=c
+print(a,b,end=" ")
+
+# for i in range(15):
+#     c=a+b
+#     a=b
+#     b=c
+#     print(c,end=" ")

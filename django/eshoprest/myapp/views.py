@@ -133,7 +133,7 @@ def payment(request):
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def create_order(request):
     user = request.user
     address = Address.objects.get(pk=request.data['address'])

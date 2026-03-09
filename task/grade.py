@@ -19,4 +19,5 @@ while choice != "n" :
         else:
              print(" invalid input if out of range (0-100) ")
 
-        choice = input("Do you want to continue (y/n)")
+        choice = input("Do you want to continue (y/n)") 
+        

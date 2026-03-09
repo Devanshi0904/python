@@ -11,3 +11,4 @@ if sum==temp:
     print("palindrom")
 else:
     print("not palindrome")
+    

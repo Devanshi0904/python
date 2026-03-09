@@ -72,6 +72,7 @@
 
 
 #==================================================== RECURSION =====================================================
+# ========= SQUARE ==========
 # def square(a):
 #     print(a*a)
 #     a+=1
@@ -79,14 +80,35 @@
 #         square(a)
 # square(2)
 
+# ========= FACTORIAL ==========
 # def factorial(n):
 #     if n == 0:
 #         return 1 
 #     else:
 #         return n * factorial(n-1)
 
-# print(factorial(10))
+# print(factorial(10))def fibonacci(n):
+
+# ========== FIBONACCI ============
+# n=5
+# def fibonacci(n):
+#     if n <= 1:
+#         return n
+#     else:
+#         return fibonacci(n-1) + fibonacci(n-2)
+
+# for i in range(n):
+#     print(fibonacci(i), end=" ")
   
+
+
+
+
+
+
+
+
+
 # =====second largest number=============
 # a = [1,5,8,9,6,3,4,2,6]
 # a = list(set(a))
