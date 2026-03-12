@@ -1,0 +1,258 @@
+1. What is software? What is software engineering?  
+• Software
+Definition: 
+- A set of instructions (programs), data structures, and documentation that enables computer functionality.
+
+Key Characteristics: 
+- Developed (not manufactured), does not "wear out" (but deteriorates due to environmental changes), often custom-built.
+
+Types: 
+- System software (e.g., Operating Systems), Application software (e.g., apps, games), and Embedded software. 
+
+• Software Engineering
+Definition: 
+The application of engineering principles, methods, and tools to develop software in a cost-effective and structured manner.
+
+Core Processes: 
+Requirements analysis, design, development (coding), testing, and maintenance.
+
+Goal: 
+To produce high-quality, reliable, and scalable software systems, often for large-scale projects, rather than just small, one-off scripts.
+Distinction from Programming: While programming is just writing code, software engineering is a broader, systematic approach to the entire lifecycle of software. 
+
+	
+2. Explain types of software
+    1. System Software 
+    - System software provides a platform for other software and acts as an interface between the computer hardware and the user.
+
+    • Operating Systems (OS): 
+    Manages computer resources and hardware (e.g., Windows, Linux, macOS, Android).
+
+    • Device Drivers: 
+    Allows the operating system to communicate with hardware devices like printers and monitors.
+
+    • Utility Software: 
+    Helps maintain and optimize the computer system (e.g., antivirus software, file compression tools, disk cleanup).
+    Firmware: Provides low-level control for specific hardware devices. 
+
+    2. Application Software
+    - Designed to help users perform specific tasks or applications. It is divided into two main categories:
+
+    • General Purpose Software: 
+    - Widely used tools like web browsers (Chrome), word processors (Microsoft Word), or media players (VLC).
+
+    • Customized/Specialized Software: 
+    - Tailored for specific tasks or industries, such as accounting software or booking systems. 
+
+    3. Programming Software
+    - These are tools used by developers to create, debug, and maintain other programs. Examples include compilers, debuggers, text editors, and Integrated Development Environments (IDEs) like Visual Studio or Eclipse. 
+
+    4. Middleware
+    - Software that acts as a bridge between different applications or system software, enabling communication in distributed applications. 
+
+    5. Other Classifications
+    • Embedded Software: 
+    Software embedded into hardware to control products, such as in washing machines, cars, or robots.
+
+    • Open Source vs. Proprietary: 
+    Software classified by licensing, where open source allows user modification and proprietary restricts it.
+
+
+3. What is SDLC? Explain each phase of SDLC  
+- The Software Development Life Cycle (SDLC) is a structured, six-to-seven-phase framework—planning, analysis, design, development, testing, deployment, 
+and maintenance—used by teams to build high-quality software efficiently. It ensures projects meet requirements, stay on budget, and are delivered on time.
+
+- Explain each phase of SDLC :
+    • Planning: 
+    - Defines the scope, purpose, resources, costs, and timeline for the project to ensure viability.
+
+    • Requirements Analysis: 
+    - Gathers detailed business requirements from stakeholders and documents them in a Software Requirement Specification (SRS) document.
+
+    • Design: 
+    - Translates requirements into technical blueprints, including architecture, user interfaces, and database structure.
+
+    • Development (Coding): 
+    - Developers write the actual code based on the design documents, creating the functional software.
+
+    • Testing: 
+    - Evaluates the software for bugs, security vulnerabilities, and performance issues to ensure it meets requirements.
+
+    • Deployment: 
+    - The final, tested product is released into the production environment for end-users.
+
+    • Maintenance: 
+    - Involves ongoing support, bug fixes, and updates to keep the software functional and relevant.
+
+
+4. What is DFD? Create a DFD diagram on Flipkart  
+- A DFD (Data Flow Diagram) is a graphical representation of how data moves through a system. It shows:
+• Processes – actions that transform data
+• Data Stores – places where data is stored
+• External Entities – people or systems interacting with the system
+• Data Flows – movement of data between components
+
+- DFDs are commonly used in system analysis and design to understand how information flows inside applications like e-commerce platforms.
+• DFD for Flipkart (Level 0 – Context Diagram)
+This shows the overall system interaction.
+
+        +------------------+
+        |      Customer     |
+        +------------------+
+               |  Search / Order / Payment
+               v
+        +------------------+
+        |   Flipkart System |
+        +------------------+
+        ^        |        ^
+ Order Status    |        | Payment Confirmation
+                 v
+        +------------------+
+        |  Payment Gateway |
+        +------------------+
+
+        +------------------+
+        |     Seller        |
+        +------------------+
+        ^  Product Details / Inventory
+
+- Explanation:
+• Customer searches products, places orders, and makes payments.
+• Flipkart System processes orders and manages product listings.
+• Seller provides product information and receives order details.
+• Payment Gateway processes payments and sends confirmation.
+
+• DFD for Flipkart (Level 1)
+Customer
+   |
+   v
++-------------------+
+| 1. Browse Product |
++-------------------+
+   |
+   v
++-------------------+        +----------------+
+| 2. Add to Cart    | -----> | Product DB     |
++-------------------+        +----------------+
+   |
+   v
++-------------------+
+| 3. Place Order    |
++-------------------+
+   |
+   v
++-------------------+        +----------------+
+| 4. Payment Process| -----> | Payment System |
++-------------------+        +----------------+
+   |
+   v
++-------------------+        +----------------+
+| 5. Order Process  | -----> | Order DB       |
++-------------------+        +----------------+
+   |
+   v
+Customer receives order confirmation
+
+- Components:
+• Processes: Browse Product, Add to Cart, Place Order, Payment Process, Order Processing
+• Data Stores: Product Database, Order Database
+• External Entities: Customer, Payment System
+
+
+5. What is Flow chart? Create a flowchart to make addition of two numbers  
+- A Flowchart is a diagram that represents the step-by-step process of solving a problem or performing an algorithm. 
+It uses different symbols to show operations, decisions, input/output, and the flow of control.
+
+- Common Flowchart Symbols
+• Oval → Start / End
+• Parallelogram → Input / Output
+• Rectangle → Process / Calculation
+• Diamond → Decision
+• Arrow → Flow line (direction of steps)
+
+- Flowchart for Addition of Two Numbers
+
+        +--------+
+        | Start  |
+        +--------+
+             |
+             v
+     +------------------+
+     | Input A and B    |
+     +------------------+
+             |
+             v
+     +------------------+
+     | Sum = A + B      |
+     +------------------+
+             |
+             v
+     +------------------+
+     | Display Sum      |
+     +------------------+
+             |
+             v
+        +--------+
+        |  End   |
+        +--------+
+
+
+6. What is Use case Diagram? Create a use-case on bill payment on paytm.  
+- A Use Case Diagram is a type of UML (Unified Modeling Language) diagram used to represent how users 
+(actors) interact with a system to perform specific tasks (use cases).
+
+• Show the functional requirements of a system
+• Identify actors (users or external systems)
+• Describe interactions between actors and the system
+
+- Main Components
+• Actor – The user or external system interacting with the system
+• Use Case – The function or service provided by the system
+• System Boundary – The system being modeled
+• Relationships – Connections between actors and use cases
+
+- Use Case Diagram for Bill Payment on Paytm
+
+                 +----------------------+
+                 |        Paytm         |
+                 |                      |
+ User ---------> | (Login/Register)    |
+                 |                      |
+ User ---------> | (Select Bill Type)  |
+                 |                      |
+ User ---------> | (Enter Bill Details)|
+                 |                      |
+ User ---------> | (Make Payment)      |
+                 |                      |
+                 | (Payment Verification)
+                 |                      |
+ User <--------- | (Receive Confirmation) |
+                 +----------------------+
+
+             |
+             v
+      +-------------------+
+      | Payment Gateway   |
+      +-------------------+
+
+- Actors
+
+• User – Person paying the bill
+• Payment Gateway / Bank – Processes the payment
+
+- Use Cases
+
+• Login / Register
+• Select bill type (electricity, mobile recharge, etc.)
+• Enter bill details
+• Make payment
+• Payment verification
+• Receive confirmation
+
+
+
+
+
+
+
+

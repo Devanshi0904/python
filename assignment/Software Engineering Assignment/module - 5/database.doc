@@ -1,0 +1,153 @@
+1 What do you understand By Database      
+- A database is a place where information is stored in a structured way so that it can be retrieved, 
+inserted, updated, or deleted easily
+
+- Example in Real Life
+    • Bank systems store customer data in databases
+    • Instagram stores user profiles in databases
+    • E-commerce websites store product and order data in databases
+
+
+2 What is Normalization?  
+- Normalization is the process of organizing data in a database to reduce redundancy and improve 
+data integrity by dividing data into related tables.
+
+- Types of Normalization
+    • 1NF (First Normal Form) – Remove repeating groups
+    • 2NF (Second Normal Form) – Remove partial dependency
+    • 3NF (Third Normal Form) – Remove transitive dependency
+
+
+3 What is Difference between DBMS and RDBMS?  
+• Data Storage: DBMS stores data in files or hierarchically. RDBMS stores data in tables with rows and columns.
+• Relationships: DBMS does not establish relationships between data. RDBMS establishes relationships between data tables using keys (e.g., Primary/Foreign Keys).
+• Data Structure: DBMS uses a hierarchical or navigational model. RDBMS uses a structured, relational model.
+• Users: DBMS typically supports only one user at a time. RDBMS supports multiple users simultaneously.
+• Data Redundancy & Normalization: DBMS often results in high redundancy. RDBMS uses normalization to reduce data redundancy.
+• Security & Speed: RDBMS is more secure and generally faster for large datasets due to indexing.
+
+
+4 What is MF Cod Rule of RDBMS Systems?
+- Rule 0: Foundation Rule – An RDBMS must manage data entirely through its relational capabilities.
+- Rule 1: Information Rule – All data must be represented as values in tables (rows and columns).
+- Rule 2: Guaranteed Access Rule – Every data item must be logically accessible using a table name, primary key, and column name.
+- Rule 3: Systematic Treatment of NULL – The DBMS must support NULL values to represent missing or inapplicable information systematically.
+- Rule 4: Active Online Catalog – Database structure (meta-data) must be stored in an online catalog, accessible via query language.
+- Rule 5: Comprehensive Data Sub-language – The system must support at least one language that handles DDL, DML, view definition, integrity constraints, and authorization.
+- Rule 6: View Updating Rule – All views that are theoretically updatable must be updatable by the system.
+- Rule 7: High-Level Insert/Update/Delete – The system must support set-based operations (not just row-by-row) for data manipulation.
+- Rule 8: Physical Data Independence – Changes to physical storage or access methods must not require changes to application programs.
+- Rule 9: Logical Data Independence – Changes to table structures (logical level) must not affect application programs.
+- Rule 10: Integrity Independence – Integrity constraints must be stored in the catalog, not in application programs.
+- Rule 11: Distribution Independence – Users should not know if the data is distributed across multiple locations.
+- Rule 12: Non-Subversion Rule – If the system has a low-level (record-at-a-time) interface, it cannot be used to bypass security or integrity constraints
+
+
+5 do you understand By Data Redundancy?  
+- Data Redundancy means the same data is stored multiple times in a database.
+
+- Types of Data Redundancy
+• Intentional: Deliberately implemented to improve system availability, such as backups to protect against data loss.
+• Unintentional: Occurs accidentally due to poor database design or manual data entry.
+
+
+6 What is DDL Interpreter?  
+- A DDL Interpreter reads and understands DDL commands and updates the database structure in the system catalog (data dictionary).
+
+- DDL commands are used to define or change the structure of the database, such as:
+
+• CREATE – create tables or databases
+• ALTER – modify table structure
+• DROP – delete tables or databases
+• TRUNCATE – remove all records from a table
+
+- How DDL Interpreter Works
+
+• User writes a DDL command.
+• The DDL Interpreter checks and processes the command.
+• It updates the database schema in the data dictionary.
+
+
+7 What is DML Compiler in SQL? 
+- A DML Compiler converts DML (Data Manipulation Language) queries into machine-level instructions so the database can retrieve or modify data.
+
+- DML commands are used to work with data inside tables, such as:
+
+• SELECT – retrieve data
+• INSERT – add new data
+• UPDATE – modify existing data
+• DELETE – remove data
+
+- How DML Compiler Works
+
+• User writes a DML query in SQL.
+• The DML Compiler translates the query into low-level instructions.
+• The Query Processor executes the instructions to access the database.
+
+
+8 What is SQL Key Constraints writing an Example of SQL Key Constraints  
+- SQL Key Constraints are rules used in SQL to identify records uniquely and maintain relationships between tables.
+
+- Common SQL Key Constraints
+
+• Primary Key – Uniquely identifies each record in a table
+• Foreign Key – Links two tables together
+• Unique Key – Ensures all values in a column are different
+• Composite Key – Combination of two or more columns as a key
+
+- Example
+
+CREATE TABLE Course (
+    course_id INT PRIMARY KEY,
+    course_name VARCHAR(50)
+);
+
+CREATE TABLE Student (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    course_id INT,
+    FOREIGN KEY (course_id) REFERENCES Course(course_id)
+);
+
+
+9 is save Point? How to create a save Point write a Query?  
+- A Savepoint in SQL is a point within a transaction to which you can roll back later without cancelling the entire transaction.
+
+- Why Savepoint is Used
+
+• To undo part of a transaction
+• To control transactions more safely
+• To avoid rolling back the entire transaction
+
+- Example
+
+BEGIN;
+
+INSERT INTO Student VALUES (1, 'Rahul', 'BCA');
+SAVEPOINT sp1;
+
+INSERT INTO Student VALUES (2, 'Priya', 'BBA');
+
+ROLLBACK TO sp1;
+
+COMMIT;
+
+
+10 What is trigger and how to create a Trigger in SQL?  
+- A Trigger is a database object that automatically executes when an event such as INSERT, UPDATE, or DELETE occurs on a table.
+
+- Why Triggers are Used
+
+• To maintain data integrity
+• To automatically log changes
+• To enforce business rules
+
+- Example
+
+CREATE TRIGGER trigger_name
+AFTER INSERT
+ON table_name
+FOR EACH ROW
+BEGIN
+   -- SQL statements
+END;
