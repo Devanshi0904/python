@@ -1,0 +1,19 @@
+h3{
+    color: deeppink;
+    text-align: right;
+}
+a:link{
+color:rgb(0, 4, 255);
+}
+
+a:visited{
+color:rgb(29, 227, 19);
+}
+
+a:hover{
+color:red;
+}
+
+a:active{
+color:rgb(229, 51, 181);
+}

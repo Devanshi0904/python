@@ -1,0 +1,317 @@
+{%extends 'base.html'%}
+{%block title%}
+<title>cart</title>
+{%endblock%}
+
+{%block body%}
+
+    <!--=============== MAIN ===============-->
+    <main class="main">
+      <!--=============== BREADCRUMB ===============-->
+      <section class="breadcrumb">
+        <ul class="breadcrumb__list flex container">
+          <li><a href="index.html" class="breadcrumb__link">Home</a></li>
+          <li><span class="breadcrumb__link"></span>></li>
+          <li><span class="breadcrumb__link">Shop</span></li>
+          <li><span class="breadcrumb__link"></span>></li>
+          <li><span class="breadcrumb__link">Cart</span></li>
+        </ul>
+      </section>
+
+      <!--=============== CART ===============-->
+      <section class="cart section--lg container">
+        <div class="table__container">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+                <th>Rename</th>
+              </tr>
+            </thead>
+            <tbody>
+              {%for c in carts%}
+              <tr>
+                <td>
+                  <img
+                    src="media/{{c.product.image}}"
+                    alt=""
+                    class="table__img"
+                  />
+                </td>
+                <td>
+                  <h3 class="table__title">
+                    {{c.product.name}}
+                  </h3>
+                  
+                </td>
+                <td>
+                  <span class="table__price">rs. {{c.product.price}}</span>
+                </td>
+                <td><input type="number" value="{{c.qty}}" class="quantity" onchange="changeqty(value,'{{c.id}}')" /></td>
+                <td><span class="subtotal">rs.{{c.total_price}}</span></td>
+                <td><i class="fi fi-rs-trash table__trash" onclick="removecart('{{c.id}}')"></i></td>
+              </tr>
+              {%endfor%}
+              
+            </tbody>
+          </table>
+        </div>
+
+        <div class="cart__actions">
+          <a href="#" class="btn flex btn__md">
+            <i class="fi-rs-shuffle"></i> Update Cart
+          </a>
+          <a href="#" class="btn flex btn__md">
+            <i class="fi-rs-shopping-bag"></i> Continue Shopping
+          </a>
+        </div>
+
+        <div class="divider">
+          <i class="fi fi-rs-fingerprint"></i>
+        </div>
+
+        <div class="cart__group grid">
+         <div class="">
+
+              <h3 class="tab__header">Shipping Address</h3>
+              <div class="tab__body">
+                
+                  <input
+                    type="text"
+                    placeholder="address"
+                    id="adr"
+                    class="form__input"
+                  />
+                  <button class="btn btn--md" onclick="addAddress()">add address</button>
+                  
+                  <br><br>
+                  <input type="hidden" id="edit_id">
+                  <input type="text" id="edit_address" class="form__input" placeholder="Edit address">
+                  <button class="btn btn--md" onclick="updateAddress()">Update</button>
+                <div id="alladr">
+                  <div style="display:grid; grid-template-columns: 60% 40%; gap:20px;">
+
+                    <!-- LEFT -->
+                    <div>
+                      <h3>Shipping Address</h3>
+                      <input type="radio" onclick="updateMap()">
+                      <input type="text" id="adr" class="form__input" placeholder="New address">
+                      <button onclick="addAddress()">Add</button>
+
+                      <div id="alladr"></div>
+                    </div>
+
+                    <!-- RIGHT -->
+                    <div>
+                      <h3 class="tab__header">Map</h3>
+
+                      <iframe
+                        id="map"
+                        style="width:100%; height:350px; border:1px solid #ccc;"
+                        src="https://www.google.com/maps?q=India&output=embed"
+                        loading="lazy">
+                      </iframe>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cart__total">
+            <h3 class="section__title">Cart Totals</h3>
+            <table class="cart__total-table">
+                <tr>
+                  <td><span class="cart__total-title">Cart Subtotal</span></td>
+                  <td><span class="cart__total-price">${{total}}</span></td>
+                </tr>
+                <tr>
+                  <td><span class="cart__total-title">Shipping</span></td>
+                  <td><span class="cart__total-price">$0.00</span></td>
+                </tr>
+                <tr>
+                  <td><span class="cart__total-title">Total</span></td>
+                  <td><span class="cart__total-price">$<span id="amt">{{total}}</span></span></td>
+                </tr>
+            </table>
+            <button class="btn flex btn--md" id="rzp-button1">
+
+              <i class="fi fi-rs-box-alt"></i> Proceed To Checkout
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!--=============== NEWSLETTER ===============-->
+      <section class="newsletter section">
+        <div class="newsletter__container container grid">
+          <h3 class="newsletter__title flex">
+            <img
+              src="./static/assets/img/icon-email.svg"
+              alt=""
+              class="newsletter__icon"
+            />
+            Sign in to Newsletter
+          </h3>
+          <p class="newsletter__description">
+            ...and receive $25 coupon for first shopping.
+          </p>
+          <form action="" class="newsletter__form">
+            <input
+              type="text"
+              placeholder="Enter Your Email"
+              class="newsletter__input"
+            />
+            <button type="submit" class="newsletter__btn">Subscribe</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <script>
+
+  const removecart = (cid) => {
+    $.get("removecart", { cid }, function (rt) {
+      location.reload()
+    })
+  }
+
+  const changeqty = (qty, cid) => {
+    $.get("changeqty", { qty, cid }, function (rt) {
+      location.reload()
+    })
+  }
+
+</script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+<script>
+
+      document.getElementById('rzp-button1').onclick = function (e) {
+
+        e.preventDefault();
+        var amt = $("#amt").html()
+
+        $.get("payment", { amt }, function (rt) {
+
+          var options = {
+            "key": "rzp_test_SF5R7ur5nvvYLR", // Enter the Key ID generated from the Dashboard
+            "amount": rt.amount, // Amount is in currency subunits. 
+            "currency": "INR",
+            "name": "devanshi",
+            "description": "Test Transaction",
+            "image": "https://example.com/your_logo",
+            "order_id": rt.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "handler": function (response) {
+              // alert(response.razorpay_payment_id);
+              // alert(response.razorpay_order_id);
+              // alert(response.razorpay_signature)
+              var adr = $('input[name="adr"]:checked').val();
+                  
+              $.get("makeorder", { "payid": response.razorpay_payment_id,adr}, function (rt) {
+                alert(rt)
+                location.reload()
+              })
+            },
+            "prefill": {
+              "name": "<name>",
+              "email": "<email>",
+              "contact": "<phone>"
+            },
+            "notes": {
+              "address": "Razorpay Corporate Office"
+            },
+            "theme": {
+              "color": "#3399cc"
+            }
+          };
+          var rzp1 = new Razorpay(options);
+          rzp1.on('payment.failed', function (response) {
+            alert(response.error.code);
+            alert(response.error.description);
+            alert(response.error.source);
+            alert(response.error.step);
+            alert(response.error.reason);
+            alert(response.error.metadata.order_id);
+            alert(response.error.metadata.payment_id);
+          });
+
+
+          rzp1.open();
+        })
+
+
+      }
+
+      $(document).ready(function(){
+        get_address()
+      })
+
+      
+      $(document).ready(function () {
+          get_address();
+      });
+
+      function addAddress() {
+          let address = $("#adr").val();
+          $.get("/add_address/", { address }, function () {
+              $("#adr").val("");
+              get_address();
+          });
+      }
+
+      function get_address() {
+          $.get("/get_address/", function (rt) {
+              let adr = "";
+              rt.adr.forEach(ele => {
+                  adr += `
+                      <div style="margin-bottom:10px;">
+                          <input type="radio"
+                          name="adr"
+                          value="${ele.id}">
+                          <p>${ele.address}</p>
+                          <button onclick="editAddress(${ele.id}, '${ele.address}')">Edit</button>
+                          <button onclick="deleteAddress(${ele.id})">Delete</button>
+                      </div>
+                  `;
+              });
+              $("#alladr").html(adr);
+          });
+      }
+
+      function editAddress(id, address) {
+          $("#edit_id").val(id);
+          $("#edit_address").val(address);
+      }
+
+      function updateAddress() {
+          let id = $("#edit_id").val();
+          let address = $("#edit_address").val();
+
+          $.post(`/update_address/${id}/`, {
+              address: address,
+              csrfmiddlewaretoken: '{{ csrf_token }}'
+          }, function () {
+              $("#edit_id").val("");
+              $("#edit_address").val("");
+              get_address();
+          });
+      }
+
+      function deleteAddress(id) {
+          $.post(`/delete_address/${id}/`, {
+              csrfmiddlewaretoken: '{{ csrf_token }}'
+          }, function () {
+              get_address();
+          });
+      }
+      
+</script>
+
+{%endblock%}

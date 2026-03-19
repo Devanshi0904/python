@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>home</title>
+</head>
+
+<body>
+
+    <form action="{% url 'register' %}" method="post">
+        {% csrf_token %}
+        <h1> welcome to home page</h1>
+        <span>{{success}}</span>
+        <br>
+        <input type="hidden" name="id" value="{{st.id}}">
+        <input type="text" name = "name" placeholder="enter your name" value="{{st.name}}">
+        <input type="text" name= "email" placeholder="enter your email" value="{{st.email}}">
+        <input type="text" name = "age" placeholder="enter your age" value="{{st.age}}">
+        <input type="submit" value="submit">
+    
+    </form>
+    <br>
+
+    <h1>Student Details</h1>
+    <table border="3"  cellspacing="5" cellpadding="10">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Age</th>
+            <TH colspan="2">Action</TH>
+        </tr>
+        {%for st in students%}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{st.name}}</td>
+            <td>{{st.email}}</td>
+            <td>{{st.age}}</td>
+            <td><a href="{%url 'delete'%}?id={{st.id}}">Delete</a></td>
+            <td><a href="{%url 'edit'%}?id={{st.id}}">Edit</a></td>
+
+        </tr>
+        {%endfor%}
+
+
+    </table>
+</body>
+</html>

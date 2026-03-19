@@ -1,0 +1,242 @@
+from django.shortcuts import render,redirect,get_object_or_404
+from django.contrib.auth.models import User
+from .models import Address
+from django.contrib.auth import login,logout,authenticate
+from django.contrib.auth.decorators import login_required
+from myapp.models import *
+from django.http import HttpResponse,JsonResponse
+import razorpay
+import datetime
+from django.core.mail import send_mail
+from django.conf import settings
+
+
+# Create your views here.
+def index (request):
+    # if request.GET:
+    #     cid = request.GET['cid']
+    #     products = Product.objects.filter(category_id= cid)
+    # else:
+    #     products = Product.objects.all()
+    # categories = Category.objects.all()
+    return render(request,"index.html")
+
+def getproducts(request):
+    catid = request.GET['catid']
+    if int(catid) > 0 :
+        products = Product.objects.filter(category_id=catid)
+        return JsonResponse({"products":list(products.values())})
+    else:
+        products = Product.objects.all()
+        return JsonResponse({"products":list(products.values())})
+    
+def searchproduct(request):
+        q = request.GET['q']
+        products = Product.objects.filter(name__startswith=q)
+        return JsonResponse({"products":list(products.values())})    
+
+def getcategories(request):
+    categories = Category.objects.all()
+    return JsonResponse({"categories":list(categories.values())})
+
+@login_required(login_url="login-register")
+def accounts (request):
+    orders  = Order.objects.filter(user=request.user)
+    return render(request,"accounts.html",{"orders":orders})
+
+@login_required(login_url="login-register")
+def cart(request):
+    carts = Cart.objects.filter(user=request.user)
+
+    sum = 0
+    for c in carts:
+        sum+=c.total_price()
+
+    return render(request, 'cart.html',{"carts":carts,"total":int(sum)})
+
+def addtocart(request):
+    pid = request.GET.get('pid')
+    product = Product.objects.get(pk=pid)
+    user = request.user
+   
+   
+    if user.is_anonymous:
+            return HttpResponse(user)
+    else:
+        isexist= Cart.objects.filter(user=user,product=product)
+        if(len(isexist)>=1):
+            isexist[0].qty = isexist[0].qty+1
+            isexist[0].save()
+            return HttpResponse("product added into cart")
+        else:
+            Cart.objects.create(product=product,user=user,qty=1)
+            return HttpResponse("product added into cart")
+
+def removecart(request):
+    cid = request.GET['cid']
+    cart = Cart.objects.get(pk=cid)
+    cart.delete()
+    return HttpResponse("Cart deleted")
+
+def changeqty(request):
+    cid = request.GET['cid']
+    qty = request.GET['qty']
+    cart = Cart.objects.get(pk=cid)
+
+    if int(qty)<=0:
+        cart.delete()
+    else:
+        cart.qty = qty
+        cart.save()
+    return HttpResponse("Cart updated")
+
+@login_required(login_url="login-register")
+def checkout (request):
+    return render(request,"checkout.html")
+
+def compare (request):
+    return render(request,"compare.html")
+
+def details (request):
+    pid = request.GET['pid']
+    product = Product.objects.get(pk=pid)
+    return render(request,"details.html",{"product":product})
+
+def login_register (request):
+    return render(request,"login-register.html")
+
+def shop (request):
+    return render(request,"shop.html")
+
+@login_required(login_url="login-register")
+def wishlist (request):
+    return render(request,"wishlist.html")
+
+def user_registration (request):
+    if request.method =='POST':
+        data = request.POST
+        uname = data.get('uname')
+        email = data.get('email')
+        password = data.get('pass')
+
+        u = User(username=uname , email=email)
+        u.set_password(password)
+        u.save()
+        return render(request,'login-register.html',{"msg":"registration successfully !"})
+    
+def user_login(request):
+    if request.method =='POST':
+        data = request.POST
+        uname = data.get('uname')
+        password = data.get('pass')
+        u = authenticate(username=uname , password=password)
+
+        if u is not None:
+            login(request,u)
+            return redirect("index")
+        else:
+            return render(request,'login-register.html',{"err":"invalid credentials !"})
+        
+def user_logout(request):
+    logout(request)
+    return redirect("index")
+
+def payment(request):
+
+    amt = request.GET['amt']
+    client = razorpay.Client(auth=("rzp_test_SF5R7ur5nvvYLR", "NgUDBnx9JpMGHTWixBznB0S3"))
+
+    
+    data = { "amount": int(amt)*100, "currency": "INR", "receipt": "order_rcptid_11" }
+    payment = client.order.create(data=data) # Amount is in currency subunits.
+    
+    return JsonResponse(payment)
+
+def makeorder(request):
+    payid = request.GET['payid']
+    adr = Address.objects.get(pk=request.GET['adr'])
+    
+    date = datetime.datetime.now()
+    user = request.user
+
+    carts = Cart.objects.filter(user=user)
+    sum = 0
+    for i in carts:
+        sum += i.total_price()
+
+    order = Order.objects.create(user=user,date=date,total=sum,payid=payid,address=adr)
+
+    rows=''
+    count=0
+    for c in carts:
+        OrderDetails.objects.create(order=order,product=c.product,qty=c.qty,price=c.product.price)
+        rows+=f"<tr><td>{count}</td><td>{c.product.name}</td><td>{c.product.price}</td><td>{c.qty}</td><td>{c.total_price()}</td></tr>"
+        c.delete()
+        count+=1
+
+
+    tbl = f"<table border='1'><thead><tr><th>payid : {order.payid}</th><th>paytype : {order.paytype}</th><th>Total</th><th>address</th></tr><tr><th>order date : {order.date}</th><th>status : {order.status}</th><th>{order.total}</th><th>{order.address.address}</th></tr><tr><th>Id</th><th>Name</th><th>Price</th><th>Qty</th><th>Total</th></tr></thead><tbody>{rows}</tbody></table>"
+                    
+                    
+                  
+
+    try:
+        send_mail("order confirmation", "your order placed successfully", settings.EMAIL_HOST_USER, [user.email],html_message=tbl)
+        
+    except Exception as e:
+        
+        print(e)
+    
+    return HttpResponse("order placed successfully")
+
+def add_address(request):
+    user = request.user
+    adr = request.GET.get("address")
+    adr = Address.objects.create(user=user,address=adr)
+    return HttpResponse("successfully address stored")
+
+@login_required(login_url="login-register")
+def get_address(request):
+    address = Address.objects.filter(user=request.user).values("id", "address")
+    return JsonResponse({"adr": list(address)})
+
+@login_required(login_url="login-register")
+def update_address(request, id):
+    obj = get_object_or_404(Address, id=id, user=request.user)
+
+    if request.method == "POST":
+        obj.address = request.POST.get("address")
+        obj.save()
+        return JsonResponse({"status": "success"})
+    
+
+@login_required(login_url="login-register")
+def delete_address(request, id):
+    obj = get_object_or_404(Address, id=id, user=request.user)
+    obj.delete()
+    return JsonResponse({"status": "deleted"})
+
+def forgotpass(request):
+    return render(request,"forgot.html")
+
+def password_sendmail(request):
+    email = request.POST['email']
+    try:
+        user = User.objects.get(email=email)
+        send_mail("password recovery", f"Devanshi1.pythonanywhere.com/restpass?email={email}", settings.EMAIL_HOST_USER, [email])
+        
+        return render(request,"forgot.html",{"err":"mail sent sucessfully"})
+    except Exception as e:
+        return render(request,"forgot.html",{"err":"somthing went wrong"})
+    
+def resetpass(request):
+    if request.method == 'GET': 
+        email = request.GET['email']
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+        user = User.objects.get(email=email)
+        user.set_password(password)
+        user.save()
+    return render(request,"resetpass.html",{"email":email})
+

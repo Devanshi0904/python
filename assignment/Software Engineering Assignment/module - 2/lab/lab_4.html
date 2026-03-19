@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Registration Form</title>
+        <style>
+
+        body{
+        font-family: Arial;
+        background:#f2f2f2;
+        }
+
+        form{
+        width:500px;
+        margin:auto;
+        padding:20px;
+        background:white;
+        border-radius:10px;
+        }
+
+        input{
+        width:80%;
+        padding:8px;
+        margin:5px;
+        }
+        input[type="radio"]{
+        width:auto;
+        margin-left:10px;
+        }
+
+        button{
+        width:100%;
+        background:blue;
+        color:white;
+        padding:10px;
+        border:none;
+        }
+
+        </style>
+    </head>
+
+<body>
+
+<div class="container">
+
+<h2>Registration Form</h2>
+
+<form>
+
+Name:<br>
+<input type="text"><br>
+
+Email:<br>
+<input type="email"><br>
+
+Password:<br>
+<input type="password"><br>
+
+Mobile:<br>
+<input type="text"><br>
+
+
+Gender:<br>
+Male<input type="radio" name="gender"> 
+<labeln style="margin-left:20px;">
+Female <input type="radio" name="gender">
+</label>
+<labeln style="margin-left:20px;">
+Other <input type="radio" name="gender">
+</label> 
+<br><br>
+
+Course: <br><br>
+<select>
+<option>Python</option>
+<option>Java</option>
+<option>Web Development</option>
+<option>Django</option>
+</select>
+<br><br>
+Address: <br>
+<input type="text" placeholder="Enter your address">
+<br><br>
+<button type="submit">Register</button>
+
+</form>
+
+</div>
+
+</body>
+</html>

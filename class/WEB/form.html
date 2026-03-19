@@ -1,0 +1,188 @@
+<!-- Save as facebook_clone.html and open in browser -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Facebook - Clone (HTML & CSS)</title>
+  <style>
+    :root{
+      --fb-blue:#1877f2;
+      --fb-dark:#0f4ab8;
+      --card-bg:#fff;
+      --page-bg:#f0f2f5;
+      --green:#42b72a;
+      --muted:#65676b;
+      font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    html,body{height:100%;margin:0;background:var(--page-bg);}
+    .wrap{
+      min-height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:40px;
+      box-sizing:border-box;
+    }
+
+    .layout{
+      width:100%;
+      max-width:1100px;
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:40px;
+      align-items:center;
+    }
+
+    /* Left marketing column */
+    .left{
+      padding-left:30px;
+    }
+    .logo{
+      color:var(--fb-blue);
+      font-weight:700;
+      font-size:64px;
+      margin:0 0 12px 0;
+      line-height:0.9;
+      letter-spacing:1px;
+    }
+    .tag{
+      font-size:28px;
+      color:var(--muted);
+      max-width:520px;
+      margin-top:8px;
+    }
+
+    /* Right card (login) */
+    .card{
+      background:var(--card-bg);
+      border-radius:8px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.08);
+      padding:18px;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+
+    .inputs{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    input[type="text"], input[type="password"]{
+      width:100%;
+      padding:12px 14px;
+      font-size:15px;
+      border-radius:6px;
+      border:1px solid #ddd;
+      box-sizing:border-box;
+      outline:none;
+    }
+    input[type="text"]:focus, input[type="password"]:focus{
+      border-color: #c7ddff;
+      box-shadow: 0 0 0 3px rgba(24,119,242,0.08);
+    }
+
+    .btn-login{
+      background:linear-gradient(180deg,var(--fb-blue),var(--fb-dark));
+      color:white;
+      border:none;
+      padding:12px;
+      font-weight:600;
+      border-radius:6px;
+      cursor:pointer;
+      font-size:16px;
+      width:100%;
+    }
+
+    .btn-create{
+      background:var(--green);
+      color:white;
+      border:none;
+      padding:12px 16px;
+      border-radius:6px;
+      font-weight:700;
+      cursor:pointer;
+      display:inline-block;
+      text-align:center;
+    }
+
+    .help{
+      color:var(--muted);
+      font-size:14px;
+      text-align:center;
+      margin-top:6px;
+    }
+
+    .sep{
+      height:10px;
+    }
+
+    /* small footer text */
+    .small{
+      font-size:13px;
+      color:var(--muted);
+      text-align:center;
+      margin-top:8px;
+    }
+
+    /* optional icon row for 'Create a Page' on left-bottom */
+    .create-page{
+      margin-top:18px;
+      font-size:15px;
+      color:var(--muted);
+    }
+
+    /* Responsive */
+    @media (max-width:880px){
+      .layout{grid-template-columns:1fr; padding:0 10px;}
+      .left{order:2;text-align:center;padding-left:0;}
+      .logo{font-size:54px;}
+      .card{order:1;}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="layout">
+      <!-- LEFT: Branding / marketing -->
+      <div class="left">
+        <h1 class="logo">facebook</h1>
+        <p class="tag">Facebook helps you connect and share with the people in your life.</p>
+
+        <div class="create-page">
+          <strong>Create a Page</strong> for a celebrity, brand or business.
+        </div>
+      </div>
+
+      <!-- RIGHT: Login Card -->
+      <div class="card" role="region" aria-label="Login form">
+        <form class="inputs" onsubmit="event.preventDefault(); alert('Login submitted (demo)');">
+          <!-- email / phone -->
+          <input type="text" name="email" placeholder="Email or phone number" required />
+
+          <!-- password -->
+          <input type="password" name="pass" placeholder="Password" required />
+
+          <!-- login button -->
+          <button class="btn-login" type="submit">Log In</button>
+        </form>
+
+        <div class="help">
+          <a href="#" style="color:var(--fb-blue);text-decoration:none;font-weight:600;">Forgotten password?</a>
+        </div>
+
+        <div style="height:10px;"></div>
+
+        <div style="display:flex;justify-content:center;">
+          <button class="btn-create" onclick="alert('Create new account (demo)')">Create new account</button>
+        </div>
+
+        <div class="small">Create a Page for a celebrity, brand or business.</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
