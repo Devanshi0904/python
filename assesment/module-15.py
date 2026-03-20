@@ -1,114 +1,107 @@
 import tkinter as tk
 from tkinter import messagebox
-import re
-import mysql.connector as sql
+import sqlite3
 
-def insert():
-    con =sql.connect(
-        host="127.0.0.1",
-        user = "root",
-        password = "root",
-        port =3306,
-        database="meditrack"
-    )
+# -----------------------------
+# Database Setup
+# -----------------------------
+conn = sqlite3.connect("miniblog.db")
+cursor = conn.cursor()
 
-# ---------- Database Setup ----------
-conn = sql.connect("meditrack.db")
-cur = conn.cursor()
-
-cur.execute("""
-CREATE TABLE IF NOT EXISTS patients(
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS posts (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT,
-    age INTEGER,
-    disease TEXT
+    username TEXT,
+    title TEXT,
+    content TEXT
 )
 """)
-
-cur.execute("""
-CREATE TABLE IF NOT EXISTS bills(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    patient_id INTEGER,
-    amount REAL
-)
-""")
-
 conn.commit()
 
-# ---------- Patient Class ----------
-class Patient:
-    def __init__(self, name, age, disease):
-        self.name = name
-        self.age = age
-        self.disease = disease
+# -----------------------------
+# Save Post Function
+# -----------------------------
+def save_post():
+    username = username_entry.get()
+    title = title_entry.get()
+    content = content_text.get("1.0", tk.END)
 
-    def save(self):
-        cur.execute("INSERT INTO patients(name, age, disease) VALUES (?, ?, ?)",
-                    (self.name, self.age, self.disease))
+    if username == "" or title == "" or content.strip() == "":
+        messagebox.showwarning("Warning", "All fields required!")
+        return
+
+    try:
+        cursor.execute("INSERT INTO posts (username, title, content) VALUES (?, ?, ?)",
+                       (username, title, content))
         conn.commit()
 
-# ---------- GUI ----------
-app = tk.Tk()
-app.title("MediTrack System")
-app.geometry("300x350")
+        messagebox.showinfo("Success", "Post Saved!")
 
-# ---------- Widgets ----------
-tk.Label(app, text="Patient Name").pack()
-name_entry = tk.Entry(app)
-name_entry.pack()
+        load_posts()
 
-tk.Label(app, text="Age").pack()
-age_entry = tk.Entry(app)
-age_entry.pack()
+    except Exception as e:
+        messagebox.showerror("Error", str(e))
 
-tk.Label(app, text="Disease").pack()
-disease_entry = tk.Entry(app)
-disease_entry.pack()
+# -----------------------------
+# Load Posts in Listbox
+# -----------------------------
+def load_posts():
+    listbox.delete(0, tk.END)
+    cursor.execute("SELECT id, title FROM posts")
+    rows = cursor.fetchall()
 
-def save_patient():
+    for row in rows:
+        listbox.insert(tk.END, f"{row[0]} - {row[1]}")
+
+# -----------------------------
+# View Post
+# -----------------------------
+def view_post():
     try:
-        p = Patient(name_entry.get(), int(age_entry.get()), disease_entry.get())
-        p.save()
-        messagebox.showinfo("Saved", "Patient added successfully!")
-    except Exception:
-        messagebox.showerror("Error", "Invalid data entered!")
+        selected = listbox.get(listbox.curselection())
+        post_id = selected.split(" - ")[0]
 
-tk.Button(app, text="Save Patient", command=save_patient).pack(pady=5)
+        cursor.execute("SELECT username, title, content FROM posts WHERE id=?", (post_id,))
+        post = cursor.fetchone()
 
-# ---------- Billing ----------
-tk.Label(app, text="Enter Patient ID for Billing").pack()
-bill_id = tk.Entry(app)
-bill_id.pack()
+        display_text.delete("1.0", tk.END)
+        display_text.insert(tk.END, f"Author: {post[0]}\n")
+        display_text.insert(tk.END, f"Title: {post[1]}\n\n")
+        display_text.insert(tk.END, post[2])
 
-tk.Label(app, text="Amount").pack()
-bill_amount = tk.Entry(app)
-bill_amount.pack()
-
-def save_bill():
-    try:
-        cur.execute("INSERT INTO bills(patient_id, amount) VALUES(?, ?)",
-                    (int(bill_id.get()), float(bill_amount.get())))
-        conn.commit()
-        messagebox.showinfo("Saved", "Bill recorded!")
     except:
-        messagebox.showerror("Error", "Invalid billing input!")
+        messagebox.showerror("Error", "Select a post!")
 
-tk.Button(app, text="Save Bill", command=save_bill).pack(pady=5)
+# -----------------------------
+# GUI
+# -----------------------------
+root = tk.Tk()
+root.title("MiniBlog App")
 
-# ---------- Regex Search ----------
-tk.Label(app, text="Search Disease Pattern").pack()
-search_entry = tk.Entry(app)
-search_entry.pack()
+tk.Label(root, text="Username").pack()
+username_entry = tk.Entry(root)
+username_entry.pack()
 
-def search():
-    pattern = search_entry.get()
-    cur.execute("SELECT name, disease FROM patients")
-    patients = cur.fetchall()
+tk.Label(root, text="Title").pack()
+title_entry = tk.Entry(root)
+title_entry.pack()
 
-    result = [p[0] for p in patients if re.search(pattern, p[1], re.IGNORECASE)]
+tk.Label(root, text="Content").pack()
+content_text = tk.Text(root, height=5)
+content_text.pack()
 
-    messagebox.showinfo("Results", "\n".join(result) if result else "No match found.")
+tk.Button(root, text="Save Post", command=save_post).pack()
 
-tk.Button(app, text="Search", command=search).pack(pady=10)
+tk.Label(root, text="Saved Posts").pack()
+listbox = tk.Listbox(root)
+listbox.pack()
 
-app.mainloop()
+tk.Button(root, text="View Post", command=view_post).pack()
+
+display_text = tk.Text(root, height=10)
+display_text.pack()
+
+# Load existing posts
+load_posts()
+
+root.mainloop()
