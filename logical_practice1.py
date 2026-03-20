@@ -111,7 +111,7 @@
 #     print("yes")
 # else:
 #     print("no")
-# ====== print number =====
+# ======= print number =======
 # for n in range(1,1001):
 #     temp=n
 #     sum=0
